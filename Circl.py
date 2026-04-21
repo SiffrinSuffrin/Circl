@@ -29,7 +29,7 @@ class Circl:
         return len(self.data)
     
     def radius(self):
-        return math.sqrt(len(self.data)/math.pi)
+        return (len(self.data)/math.pi)**(1/2)
     
     def wholeList(self):
         return self.data
