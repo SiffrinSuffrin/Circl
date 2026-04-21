@@ -1,5 +1,4 @@
-import time
-
+import math
 class Circl:
     def __init__(self, initial=[]):
         self.data = initial
@@ -20,62 +19,17 @@ class Circl:
     def remove(self, location):
         del self.data[location]
 
+    def pop(self):
+        return self.data.pop()
+
     def access(self, location):
         return self.data[location % len(self.data)]
-
+    
+    def length(self):
+        return len(self.data)
+    
+    def radius(self):
+        return math.sqrt(len(self.data)/math.pi)
+    
     def wholeList(self):
         return self.data
-
-
-def decode():
-    program = '"Hello, World!"P.'
-    subCircl = False
-    temp_chars = []
-    toCircl = []
-
-    for char in program:
-        if char in ('"', "'"):
-            if not subCircl:
-                subCircl = True
-            else:
-                toCircl.append(Circl(temp_chars))
-                temp_chars = []
-                subCircl = False
-            continue
-
-        if subCircl:
-            temp_chars.append(char)
-        else:
-            toCircl.append(char)
-
-    mainCircl = Circl(toCircl)
-
-    return mainCircl
-
-
-def execute(mainCircl):
-    programCounter = 0
-    while True:
-        instruction = mainCircl.access(programCounter)
-
-        if type(instruction) is Circl:
-            mainCircl.append(instruction)
-
-        elif instruction == "P":
-            toPrint = mainCircl.access(-1)
-            if type(toPrint) is Circl:
-                print("".join(toPrint.wholeList()))
-            else:
-                print(toPrint)
-            mainCircl.remove(-1)
-        
-        elif instruction == ".":
-            break
-
-        time.sleep(0.01)
-        programCounter += 1
-
-
-execute(decode())
-
-print("Program execution completed")
