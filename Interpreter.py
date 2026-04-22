@@ -146,13 +146,12 @@ def execute(mainCircl):
             elif instruction == ".":
                 while mainCircl.length() > 0:
                     mainCircl.pop()
-        
-            print(recurseCircl(mainCircl))
-            time.sleep(1)
 
         except Exception as e:
             mainCircl.append(str(e))
 
         programCounter += 1
+        print(recurseCircl(mainCircl))
+        time.sleep(1)
 
 execute(decode())
