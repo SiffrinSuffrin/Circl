@@ -2,7 +2,7 @@ import math
 
 class Circl:
     def __init__(self, initial=None):
-        self.data = list(initial) if initial is not None else []
+        self.data = initial if initial is not None else []
 
     def extend(self, length):
         self.data.extend([""] * length)
