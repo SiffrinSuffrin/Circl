@@ -11,7 +11,7 @@ def circlGen(program):
             if not subCircl:
                 subCircl = True
             else:
-                toCircl.append(Circl(["".join(tempchars)]))
+                toCircl.append(Circl(tempchars))
                 tempchars = []
                 subCircl = False
             continue
@@ -71,31 +71,32 @@ def execute(mainCircl):
         elif instruction == "+":
             toOperate = mainCircl.pop()
             if type(toOperate) is Circl:
-                mainCircl.append(str(sum(map(int, toOperate.wholeList()))))
+                toOperate2 = mainCircl.pop()
+                if type(toOperate2) is Circl:
+                    new = []
+                    for elem in toOperate2.wholeList():
+                        new.append(Circl([str(int(elem) + int(i)) for i in toOperate.wholeList()]))
+                    mainCircl.append(Circl(new))
+                else:
+                    mainCircl.append(Circl([str(int(toOperate2) + int(i)) for i in toOperate.wholeList()]))
             else:
                 toOperate2 = mainCircl.pop()
                 if type(toOperate2) is Circl:
-                    mainCircl.append(str(toOperate + sum(map(int, toOperate2.wholeList()))))
+                    mainCircl.append(Circl([str(int(toOperate) + int(i)) for i in toOperate2.wholeList()]))
                 else:
                     mainCircl.append(str(int(toOperate)+int(toOperate2)))
         
         elif instruction == "²":
             toOperate = mainCircl.pop()
             if type(toOperate) is Circl:
-                new = []
-                for i in toOperate.wholeList():
-                    new.append(str(int(i)**2))
-                mainCircl.append(Circl(new))
+                mainCircl.append(Circl([str(int(i)**2) for i in toOperate.wholeList()]))
             else:
                 mainCircl.append(str(int(toOperate)**2))
         
         elif instruction == "√":
             toOperate = mainCircl.pop()
             if type(toOperate) is Circl:
-                new = []
-                for i in toOperate.wholeList():
-                    new.append(str(int(i)**(1/2)))
-                mainCircl.append(Circl(new))
+                mainCircl.append(Circl([str(int(i)**(1/2)) for i in toOperate.wholeList()]))
             else:
                 mainCircl.append(str(int(toOperate)**(1/2)))
         
