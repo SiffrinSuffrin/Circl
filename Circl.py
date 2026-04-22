@@ -1,16 +1,14 @@
 import math
+
 class Circl:
-    def __init__(self, initial=[]):
-        self.data = initial
+    def __init__(self, initial=None):
+        self.data = list(initial) if initial is not None else []
 
     def extend(self, length):
-        self.data += [""] * length
+        self.data.extend([""] * length)
 
     def set(self, location, value):
-        if isinstance(value, Circl):
-            self.data[location % len(self.data)] = value
-        else:
-            self.data[location % len(self.data)] = str(value)
+        self.data[location % len(self.data)] = value if isinstance(value, Circl) else str(value)
 
     def append(self, value):
         self.extend(1)
@@ -24,12 +22,12 @@ class Circl:
 
     def access(self, location):
         return self.data[location % len(self.data)]
-    
+
     def length(self):
         return len(self.data)
-    
+
     def radius(self):
-        return (len(self.data)/math.pi)**(1/2)
-    
+        return (len(self.data) / math.pi) ** 0.5
+
     def wholeList(self):
         return self.data
