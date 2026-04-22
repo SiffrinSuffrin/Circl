@@ -11,7 +11,7 @@ def circlGen(program):
             if not subCircl:
                 subCircl = True
             else:
-                toCircl.append(Circl("".join(tempchars)))
+                toCircl.append(Circl(["".join(tempchars)]))
                 tempchars = ""
                 subCircl = False
             continue
