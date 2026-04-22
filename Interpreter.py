@@ -23,7 +23,7 @@ def circlGen(program):
     return toCircl
 
 def decode():
-    program = '"Hello, World!"˄.'
+    program = '"1""2"+_˄.'
 
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
@@ -47,6 +47,7 @@ def execute(mainCircl):
             break
 
         instruction = mainCircl.access(programCounter)
+        print
 
         if type(instruction) is Circl:
             mainCircl.append(instruction)
@@ -99,10 +100,15 @@ def execute(mainCircl):
                 mainCircl.append(Circl([str(int(i)**(1/2)) for i in toOperate.wholeList()]))
             else:
                 mainCircl.append(str(int(toOperate)**(1/2)))
+                
+        elif instruction == "_":
+            toOperate = mainCircl.pop()
+            if type(toOperate) is Circl:
+                for i in toOperate.wholeList():
+                    mainCircl.append(i)
         
         elif instruction == ".":
             break
-        
         
         print(recurseCircl(mainCircl))
         time.sleep(1)
