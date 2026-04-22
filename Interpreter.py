@@ -3,7 +3,7 @@ from Circl import *
 
 def circlGen(program):
     subCircl = False
-    tempchars = []
+    tempchars = ""
     toCircl = []
 
     for char in program:
@@ -11,13 +11,13 @@ def circlGen(program):
             if not subCircl:
                 subCircl = True
             else:
-                toCircl.append(Circl(tempchars))
-                tempchars = []
+                toCircl.append(Circl("".join(tempchars)))
+                tempchars = ""
                 subCircl = False
             continue
 
         if subCircl:
-            tempchars.append(char)
+            tempchars += char
         else:
             toCircl.append(char)
     return toCircl
