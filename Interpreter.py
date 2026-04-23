@@ -23,7 +23,7 @@ def circlGen(program):
     return toCircl
 
 def decode():
-    program = '"12"✄"12"✄+^.'
+    program = '"011"✄"123"✄+^.'
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
 
@@ -246,6 +246,6 @@ def execute(mainCircl):
 
         programCounter += 1
         print(recurseCircl(mainCircl))
-        time.sleep(1)
+        time.sleep(0.01)
 
 execute(decode())
