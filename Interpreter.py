@@ -2,21 +2,21 @@ import time, math
 from Circl import *
 
 def circlGen(program):
-    subCircl = False
+    subString = False
     tempchars = ""
     toCircl = []
 
     for char in program:
         if char in ('"', "'"):
-            if not subCircl:
-                subCircl = True
+            if not subString:
+                subString = True
             else:
-                toCircl.append(Circl(["".join(tempchars)]))
+                toCircl.append(["".join(tempchars)])
                 tempchars = ""
-                subCircl = False
+                subString = False
             continue
 
-        if subCircl:
+        if subString:
             tempchars += char
         else:
             toCircl.append(char)
