@@ -23,7 +23,7 @@ def circlGen(program):
     return toCircl
 
 def decode():
-    program = '"1""2"+^.'
+    program = '"split this string"✄^.'
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
 
@@ -58,59 +58,70 @@ def execute(mainCircl):
                 mainCircl.append(math.pi)
 
             elif instruction == "^":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
-                    print("".join(toOperate.wholeList()))
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    print(",".join(toOperate1.wholeList()))
                 else:
-                    print(toOperate)
+                    print(toOperate1)
 
             elif instruction == "!":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
-                    mainCircl.append(not(toOperate.wholeList()))
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(not(toOperate1.wholeList()))
                 else:
-                    mainCircl.append(not(toOperate))
+                    mainCircl.append(not(toOperate1))
             
             elif instruction == "²":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
-                    mainCircl.append(Circl([str(int(i)**2) for i in toOperate.wholeList()]))
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl([str(int(i)**2) for i in toOperate1.wholeList()]))
                 else:
-                    mainCircl.append(str(int(toOperate)**2))
+                    mainCircl.append(str(int(toOperate1)**2))
         
             elif instruction == "√":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
-                    mainCircl.append(Circl([str(int(i)**(1/2)) for i in toOperate.wholeList()]))
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl([str(int(i)**(1/2)) for i in toOperate1.wholeList()]))
                 else:
-                    mainCircl.append(str(int(toOperate)**(1/2)))
+                    mainCircl.append(str(int(toOperate1)**(1/2)))
 
             elif instruction == "|":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
-                    mainCircl.append(Circl([str(abs(int(i))) for i in toOperate.wholeList()]))
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl([str(abs(int(i))) for i in toOperate1.wholeList()]))
                 else:
-                    mainCircl.append(str(abs(int(toOperate))))
+                    mainCircl.append(str(abs(int(toOperate1))))
             
             elif instruction == "₁":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
-                    mainCircl.append(Circl([str(1-int(i)) for i in toOperate.wholeList()]))
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl([str(1-int(i)) for i in toOperate1.wholeList()]))
                 else:
-                    mainCircl.append(str(1-int(toOperate)))
+                    mainCircl.append(str(1-int(toOperate1)))
+                    
+            elif instruction == "✄":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl(list(i) for i in toOperate1.wholeList()))
+                else:
+                    mainCircl.append(list(toOperate1))
             
             elif instruction == "≡":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
-                    if toOperate.wholeList()[1:] == toOperate.wholeList()[:-1]:
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    if toOperate1.wholeList()[1:] == toOperate1.wholeList()[:-1]:
                         mainCircl.append("1")
                     else:
                         mainCircl.append("0")
+                        
+            elif instruction == "‾":
+                toOperate1 = mainCircl.pop()
+                mainCircl.append(Circl(toOperate1))
                 
             elif instruction == "_":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
-                    for i in toOperate.wholeList():
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    for i in toOperate1.wholeList():
                         mainCircl.append(i)
                         
             elif instruction == "/":
@@ -119,95 +130,113 @@ def execute(mainCircl):
                 mainCircl.append(toOperate1)
                 mainCircl.append(toOperate2)
                 
-            elif instruction == "+":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
+            elif instruction == "✂":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
                         new = []
                         for elem in toOperate2.wholeList():
-                            new.append(Circl([str(int(elem) + int(i)) for i in toOperate.wholeList()]))
+                            new.append(Circl(i.split(elem) for i in toOperate1.wholeList()))
                         mainCircl.append(Circl(new))
                     else:
-                        mainCircl.append(Circl([str(int(toOperate2) + int(i)) for i in toOperate.wholeList()]))
+                        mainCircl.append(Circl(i.split(toOperate2) for i in toOperate1.wholeList()))
                 else:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
-                        mainCircl.append(Circl([str(int(toOperate) + int(i)) for i in toOperate2.wholeList()]))
+                        mainCircl.append(Circl(i.split(toOperate1) for i in toOperate2.wholeList()))
                     else:
-                        mainCircl.append(str(int(toOperate) + int(toOperate2)))
+                        mainCircl.append(Circl(toOperate1.split(toOperate2)))
+                
+            elif instruction == "+":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    toOperate2 = mainCircl.pop()
+                    if type(toOperate2) is Circl:
+                        new = []
+                        for elem in toOperate2.wholeList():
+                            new.append(Circl([str(int(elem) + int(i)) for i in toOperate1.wholeList()]))
+                        mainCircl.append(Circl(new))
+                    else:
+                        mainCircl.append(Circl([str(int(toOperate2) + int(i)) for i in toOperate1.wholeList()]))
+                else:
+                    toOperate2 = mainCircl.pop()
+                    if type(toOperate2) is Circl:
+                        mainCircl.append(Circl([str(int(toOperate1) + int(i)) for i in toOperate2.wholeList()]))
+                    else:
+                        mainCircl.append(str(int(toOperate1) + int(toOperate2)))
 
             elif instruction == "-":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
                         new = []
                         for elem in toOperate2.wholeList():
-                            new.append(Circl([str(int(elem) - int(i)) for i in toOperate.wholeList()]))
+                            new.append(Circl([str(int(elem) - int(i)) for i in toOperate1.wholeList()]))
                         mainCircl.append(Circl(new))
                     else:
-                        mainCircl.append(Circl([str(int(toOperate2) - int(i)) for i in toOperate.wholeList()]))
+                        mainCircl.append(Circl([str(int(toOperate2) - int(i)) for i in toOperate1.wholeList()]))
                 else:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
-                        mainCircl.append(Circl([str(int(toOperate) - int(i)) for i in toOperate2.wholeList()]))
+                        mainCircl.append(Circl([str(int(toOperate1) - int(i)) for i in toOperate2.wholeList()]))
                     else:
-                        mainCircl.append(str(int(toOperate) - int(toOperate2)))
+                        mainCircl.append(str(int(toOperate1) - int(toOperate2)))
 
             elif instruction == "×":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
                         new = []
                         for elem in toOperate2.wholeList():
-                            new.append(Circl([str(int(elem) * int(i)) for i in toOperate.wholeList()]))
+                            new.append(Circl([str(int(elem) * int(i)) for i in toOperate1.wholeList()]))
                         mainCircl.append(Circl(new))
                     else:
-                        mainCircl.append(Circl([str(int(toOperate2) * int(i)) for i in toOperate.wholeList()]))
+                        mainCircl.append(Circl([str(int(toOperate2) * int(i)) for i in toOperate1.wholeList()]))
                 else:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
-                        mainCircl.append(Circl([str(int(toOperate) * int(i)) for i in toOperate2.wholeList()]))
+                        mainCircl.append(Circl([str(int(toOperate1) * int(i)) for i in toOperate2.wholeList()]))
                     else:
-                        mainCircl.append(str(int(toOperate) * int(toOperate2)))
+                        mainCircl.append(str(int(toOperate1) * int(toOperate2)))
             
             elif instruction == "÷":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
                         new = []
                         for elem in toOperate2.wholeList():
-                            new.append(Circl([str(int(elem) / int(i)) for i in toOperate.wholeList()]))
+                            new.append(Circl([str(int(elem) / int(i)) for i in toOperate1.wholeList()]))
                         mainCircl.append(Circl(new))
                     else:
-                        mainCircl.append(Circl([str(int(toOperate2) / int(i)) for i in toOperate.wholeList()]))
+                        mainCircl.append(Circl([str(int(toOperate2) / int(i)) for i in toOperate1.wholeList()]))
                 else:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
-                        mainCircl.append(Circl([str(int(toOperate) / int(i)) for i in toOperate2.wholeList()]))
+                        mainCircl.append(Circl([str(int(toOperate1) / int(i)) for i in toOperate2.wholeList()]))
                     else:
-                        mainCircl.append(str(int(toOperate) / int(toOperate2)))
+                        mainCircl.append(str(int(toOperate1) / int(toOperate2)))
 
             elif instruction == "%":
-                toOperate = mainCircl.pop()
-                if type(toOperate) is Circl:
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
                         new = []
                         for elem in toOperate2.wholeList():
-                            new.append(Circl([str(int(elem) % int(i)) for i in toOperate.wholeList()]))
+                            new.append(Circl([str(int(elem) % int(i)) for i in toOperate1.wholeList()]))
                         mainCircl.append(Circl(new))
                     else:
-                        mainCircl.append(Circl([str(int(toOperate2) % int(i)) for i in toOperate.wholeList()]))
+                        mainCircl.append(Circl([str(int(toOperate2) % int(i)) for i in toOperate1.wholeList()]))
                 else:
                     toOperate2 = mainCircl.pop()
                     if type(toOperate2) is Circl:
-                        mainCircl.append(Circl([str(int(toOperate) % int(i)) for i in toOperate2.wholeList()]))
+                        mainCircl.append(Circl([str(int(toOperate1) % int(i)) for i in toOperate2.wholeList()]))
                     else:
-                        mainCircl.append(str(int(toOperate) % int(toOperate2)))
+                        mainCircl.append(str(int(toOperate1) % int(toOperate2)))
             
             else:
                 mainCircl.append(instruction)
