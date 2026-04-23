@@ -11,7 +11,7 @@ def circlGen(program):
             if not subString:
                 subString = True
             else:
-                toCircl.append(["".join(tempchars)])
+                toCircl.append("".join(tempchars))
                 tempchars = ""
                 subString = False
             continue
@@ -23,7 +23,7 @@ def circlGen(program):
     return toCircl
 
 def decode():
-    program = '^"This is a demo of the benifits of a Circl!"'
+    program = '"1""2"+^.'
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
 
@@ -46,11 +46,8 @@ def execute(mainCircl):
                 break
         try:
             instruction = mainCircl.access(programCounter)
-
-            if type(instruction) is Circl:
-                mainCircl.append(instruction)
             
-            elif instruction == ".":
+            if instruction == ".":
                 while mainCircl.length() > 0:
                     mainCircl.pop()
         
@@ -211,6 +208,9 @@ def execute(mainCircl):
                         mainCircl.append(Circl([str(int(toOperate) % int(i)) for i in toOperate2.wholeList()]))
                     else:
                         mainCircl.append(str(int(toOperate) % int(toOperate2)))
+            
+            else:
+                mainCircl.append(instruction)
 
         except Exception as e:
             mainCircl.append(str(e))
