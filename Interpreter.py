@@ -23,7 +23,7 @@ def circlGen(program):
     return toCircl
 
 def decode():
-    program = '"split this string"✄^.'
+    program = '"12"✄"12"✄+^.'
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
 
@@ -60,7 +60,7 @@ def execute(mainCircl):
             elif instruction == "^":
                 toOperate1 = mainCircl.pop()
                 if type(toOperate1) is Circl:
-                    print(",".join(toOperate1.wholeList()))
+                    print(recurseCircl(toOperate1))
                 else:
                     print(toOperate1)
 
@@ -104,7 +104,7 @@ def execute(mainCircl):
                 if type(toOperate1) is Circl:
                     mainCircl.append(Circl(list(i) for i in toOperate1.wholeList()))
                 else:
-                    mainCircl.append(list(toOperate1))
+                    mainCircl.append(Circl(list(toOperate1)))
             
             elif instruction == "≡":
                 toOperate1 = mainCircl.pop()
