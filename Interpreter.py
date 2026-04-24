@@ -7,7 +7,7 @@ def circlGen(program):
     toCircl = []
 
     for char in program:
-        if char in ('"', "'"):
+        if char in ('"', "'", "`"):
             if not subString:
                 subString = True
             else:
@@ -23,20 +23,23 @@ def circlGen(program):
     return toCircl
 
 def decode():
-    program = '"011"✄"123"✄+^.'
+    program = '"123"✄⇡^.'
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
 
     return mainCircl
 
 def recurseCircl(circl):
+    items = list(circl.wholeList())
     toPrint = []
-    for i in circl.wholeList():
-        if type(i) is Circl:
-            toPrint += [recurseCircl(i)]
+    for i in items:
+        if isinstance(i, Circl):
+            toPrint.append(recurseCircl(i))
         else:
             toPrint.append(i)
     return toPrint
+
+
 
 def execute(mainCircl):
     programCounter = 0
@@ -67,9 +70,16 @@ def execute(mainCircl):
             elif instruction == "!":
                 toOperate1 = mainCircl.pop()
                 if type(toOperate1) is Circl:
-                    mainCircl.append(not(toOperate1.wholeList()))
+                    mainCircl.append(Circl(["1" if not(int(i)) else "0" for i in toOperate1.wholeList()]))
                 else:
-                    mainCircl.append(not(toOperate1))
+                    mainCircl.append("1" if not(int(toOperate1)) else "0")
+                    
+            elif instruction == "⇡":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl(Circl(str(x) for x in range(int(i))) for i in toOperate1.wholeList()))
+                else:
+                    mainCircl.append(Circl(str(x) for x in range(int(toOperate1))))
             
             elif instruction == "²":
                 toOperate1 = mainCircl.pop()
@@ -110,6 +120,11 @@ def execute(mainCircl):
                 toOperate1 = mainCircl.pop()
                 if type(toOperate1) is Circl:
                     if toOperate1.wholeList()[1:] == toOperate1.wholeList()[:-1]:
+                        mainCircl.append("1")
+                    else:
+                        mainCircl.append("0")
+                else:
+                    if list(toOperate1)[1:] == list(toOperate1)[:-1]:
                         mainCircl.append("1")
                     else:
                         mainCircl.append("0")
@@ -242,10 +257,10 @@ def execute(mainCircl):
                 mainCircl.append(instruction)
 
         except Exception as e:
+            print("An Exception, ",e," occured. Pushing to stack and continuing")
             mainCircl.append(str(e))
 
         programCounter += 1
-        print(recurseCircl(mainCircl))
         time.sleep(0.01)
 
 execute(decode())
