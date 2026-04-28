@@ -23,7 +23,7 @@ def circlGen(program):
     return toCircl
 
 def decode():
-    program = '"REST"✄"TEST"✄⋃^.'
+    program = '"This is a test of the length finding system"⧺⇀^⦰^.'
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
 
@@ -57,6 +57,11 @@ def execute(mainCircl):
 
             elif instruction == "π":
                 mainCircl.append(math.pi)
+                
+            elif instruction == "⧺":
+                toOperate1 = mainCircl.pop()
+                mainCircl.append(toOperate1)
+                mainCircl.append(toOperate1)
 
             elif instruction == "^":
                 toOperate1 = mainCircl.pop()
@@ -64,6 +69,20 @@ def execute(mainCircl):
                     print(recurseCircl(toOperate1))
                 else:
                     print(toOperate1)
+                    
+            elif instruction == "⇀":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(toOperate1.length())
+                else:
+                    mainCircl.append(len(toOperate1))
+            
+            elif instruction == "⦰":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(toOperate1.radius())
+                else:
+                    mainCircl.append((len(toOperate1) / math.pi) ** 0.5)
 
             elif instruction == "!":
                 toOperate1 = mainCircl.pop()
