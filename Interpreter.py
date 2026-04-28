@@ -40,7 +40,6 @@ def recurseCircl(circl):
     return toPrint
 
 
-
 def execute(mainCircl):
     programCounter = 0
     
@@ -146,13 +145,15 @@ def execute(mainCircl):
                     if type(toOperate2) is Circl:
                         new = []
                         for elem in toOperate1.wholeList():
-                            new.append(Circl(toOperate2.join(x) for i in toOperate2.wholeList()))
+                            new.append(Circl(toOperate2.join(elem) for i in toOperate2.wholeList()))
                         mainCircl.append(new)
                     else:
                         mainCircl.append(toOperate2.join(toOperate1.wholeList()))
                 else:
                     if type(toOperate2) is Circl:
                         mainCircl.append(toOperate1.join(toOperate2.wholeList())) 
+                    else:
+                        mainCircl.append(toOperate2.join(list(toOperate1)))
                         
             elif instruction == "/":
                 toOperate1 = mainCircl.pop()
