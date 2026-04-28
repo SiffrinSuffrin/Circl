@@ -30,13 +30,12 @@ def decode():
     return mainCircl
 
 def recurseCircl(circl):
+    if type(circl) == str:
+        return circl
     items = circl.wholeList()
     toPrint = []
     for i in items:
-        if type(i) != str:
-            toPrint.append(recurseCircl(i))
-        else:
-            toPrint.append(i)
+        toPrint.append(recurseCircl(i))
     return toPrint
 
 
@@ -143,10 +142,13 @@ def execute(mainCircl):
                 toOperate2 = mainCircl.pop()
                 if type(toOperate1) is Circl:
                     if type(toOperate2) is Circl:
-                        new = []
-                        for elem in toOperate1.wholeList():
-                            new.append(Circl(toOperate2.join(elem) for i in toOperate2.wholeList()))
-                        mainCircl.append(new)
+                        new_elements = []
+                        base_list = toOperate1.wholeList() 
+                        for separator in toOperate2.wholeList():
+                            joined_str = separator.join(base_list)
+                            new_elements.append(Circl(joined_str)) 
+                            
+                        mainCircl.append(Circl(new_elements))
                     else:
                         mainCircl.append(toOperate2.join(toOperate1.wholeList()))
                 else:
