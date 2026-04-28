@@ -3,6 +3,9 @@ import math
 class Circl:
     def __init__(self, initial=None):
         self.data = initial if initial is not None else []
+        
+    def __repr__(self):
+        return str(self.wholeList())
 
     def extend(self, length):
         self.data.extend([""] * length)
