@@ -30,10 +30,10 @@ def decode():
     return mainCircl
 
 def recurseCircl(circl):
-    items = list(circl.wholeList())
+    items = circl.wholeList()
     toPrint = []
     for i in items:
-        if isinstance(i, Circl):
+        if type(i) != str:
             toPrint.append(recurseCircl(i))
         else:
             toPrint.append(i)
@@ -276,6 +276,7 @@ def execute(mainCircl):
             print("An Exception, ",e," occured. Pushing to stack and continuing")
             mainCircl.append(str(e))
 
+        print(recurseCircl(mainCircl))
         programCounter += 1
         time.sleep(0.01)
 
