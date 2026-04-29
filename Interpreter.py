@@ -23,7 +23,7 @@ def circlGen(program):
     return toCircl
 
 def decode():
-    program = '"This is a test of the length finding system"⧺⇀^⦰^.'
+    program = '"a"Ψ⧺^Ω^.'
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
 
@@ -77,12 +77,36 @@ def execute(mainCircl):
                 else:
                     mainCircl.append(len(toOperate1))
             
-            elif instruction == "⦰":
+            elif instruction == "⦰": 
                 toOperate1 = mainCircl.pop()
                 if type(toOperate1) is Circl:
                     mainCircl.append(toOperate1.radius())
                 else:
                     mainCircl.append((len(toOperate1) / math.pi) ** 0.5)
+                    
+            elif instruction == "Ψ":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl([str(ord(i)) for i in toOperate1.wholeList()]))
+                else:
+                    mainCircl.append(str(ord(toOperate1)))
+            
+            elif instruction == "Ω":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl([str(chr(int(i))) for i in toOperate1.wholeList()]))
+                else:
+                    mainCircl.append(str(chr(int(toOperate1))))
+            
+            elif instruction == "⚂":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(random.choice(toOperate1.wholeList()))
+                else:
+                    if toOperate1 == "1":
+                        mainCircl.append(str(random.random()))
+                    else:
+                        mainCircl.append(str(random.randint(0,int(toOperate1))))
 
             elif instruction == "!":
                 toOperate1 = mainCircl.pop()
@@ -101,16 +125,16 @@ def execute(mainCircl):
             elif instruction == "²":
                 toOperate1 = mainCircl.pop()
                 if type(toOperate1) is Circl:
-                    mainCircl.append(Circl([str(int(i)**2) for i in toOperate1.wholeList()]))
+                    mainCircl.append(Circl([str(int(i) ** 2) for i in toOperate1.wholeList()]))
                 else:
-                    mainCircl.append(str(int(toOperate1)**2))
+                    mainCircl.append(str(int(toOperate1) ** 2))
         
             elif instruction == "√":
                 toOperate1 = mainCircl.pop()
                 if type(toOperate1) is Circl:
-                    mainCircl.append(Circl([str(int(i)**(1/2)) for i in toOperate1.wholeList()]))
+                    mainCircl.append(Circl([str(int(i) ** (1 / 2)) for i in toOperate1.wholeList()]))
                 else:
-                    mainCircl.append(str(int(toOperate1)**(1/2)))
+                    mainCircl.append(str(int(toOperate1) ** (1 / 2)))
 
             elif instruction == "|":
                 toOperate1 = mainCircl.pop()
@@ -118,13 +142,6 @@ def execute(mainCircl):
                     mainCircl.append(Circl([str(abs(int(i))) for i in toOperate1.wholeList()]))
                 else:
                     mainCircl.append(str(abs(int(toOperate1))))
-            
-            elif instruction == "₁":
-                toOperate1 = mainCircl.pop()
-                if type(toOperate1) is Circl:
-                    mainCircl.append(Circl([str(1-int(i)) for i in toOperate1.wholeList()]))
-                else:
-                    mainCircl.append(str(1-int(toOperate1)))
                     
             elif instruction == "✄":
                 toOperate1 = mainCircl.pop()
@@ -290,8 +307,17 @@ def execute(mainCircl):
                     else:
                         mainCircl.append(str(int(toOperate1) % int(toOperate2)))
             
+            elif instruction == "\\":
+                toOperate1 = mainCircl.pop()
+                toOperate2 = mainCircl.pop()
+                toOperate3 = mainCircl.pop()
+                mainCircl.append(toOperate3)
+                mainCircl.append(toOperate1)
+                mainCircl.append(toOperate2)
+            
             else:
                 mainCircl.append(instruction)
+                
 
         except Exception as e:
             print("An Exception, ",e," occured. Pushing to stack and continuing")
