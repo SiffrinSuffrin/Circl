@@ -300,11 +300,60 @@ def execute(mainCircl):
                 if float(toOperate1):
                     programCounter += int(float(toOperate2))
 
+            elif instruction == "⇒":
+                toOperate1 = mainCircl.pop()
+                programCounter += int(float(toOperate1))
+
+            elif instruction == "⇐":
+                toOperate1 = mainCircl.pop()
+                programCounter = int(float(toOperate1)) - 1
+
             elif instruction == "↺":
                 toOperate1 = mainCircl.pop()
                 if type(toOperate1) is Circl:
                     execute(toOperate1)
                     
+            elif instruction == "⊲":
+                n = int(float(mainCircl.pop()))
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    items = toOperate1.wholeList()
+                    n = n % len(items) if items else 0
+                    mainCircl.append(Circl(items[n:] + items[:n]))
+                else:
+                    n = n % len(toOperate1) if toOperate1 else 0
+                    mainCircl.append(toOperate1[n:] + toOperate1[:n])
+
+            elif instruction == "⊳":
+                n = int(float(mainCircl.pop()))
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    items = toOperate1.wholeList()
+                    n = n % len(items) if items else 0
+                    mainCircl.append(Circl(items[-n:] + items[:-n]) if n else Circl(items))
+                else:
+                    n = n % len(toOperate1) if toOperate1 else 0
+                    mainCircl.append((toOperate1[-n:] + toOperate1[:-n]) if n else toOperate1)
+
+            elif instruction == "⊙":
+                n = int(float(mainCircl.pop()))
+                length = mainCircl.length()
+                n = n % length if length else 0
+                items = mainCircl.wholeList()
+                rotated = items[n:] + items[:n]
+                while mainCircl.length() > 0:
+                    mainCircl.pop()
+                for item in rotated:
+                    mainCircl.append(item)
+                programCounter = (programCounter - n) % length - 1
+
+            elif instruction == "⡳":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl([str(x) for x in range(int(float(toOperate1.wholeList()[0])), int(float(toOperate1.wholeList()[1])))]))
+                else:
+                    mainCircl.append(Circl([str(x) for x in range(int(float(toOperate1)))]))
+
             elif instruction == "⇡":
                 toOperate1 = mainCircl.pop()
                 if type(toOperate1) is Circl:
@@ -756,6 +805,72 @@ def execute(mainCircl):
                         mainCircl.append(Circl([str(float(toOperate1) % float(i)) for i in toOperate2.wholeList()]))
                     else:
                         mainCircl.append(str(float(toOperate1) % float(toOperate2)))
+
+            elif instruction == "⁻":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(Circl([str(-float(i)) for i in toOperate1.wholeList()]))
+                else:
+                    mainCircl.append(str(-float(toOperate1)))
+
+            elif instruction == "∥":
+                toOperate1 = mainCircl.pop()
+                toOperate2 = mainCircl.pop()
+                if type(toOperate1) is Circl and type(toOperate2) is Circl:
+                    mainCircl.append(Circl(toOperate2.wholeList() + toOperate1.wholeList()))
+                elif type(toOperate1) is Circl:
+                    mainCircl.append(Circl([toOperate2] + toOperate1.wholeList()))
+                elif type(toOperate2) is Circl:
+                    mainCircl.append(Circl(toOperate2.wholeList() + [toOperate1]))
+                else:
+                    mainCircl.append(toOperate2 + toOperate1)
+
+            elif instruction == "⊡":
+                n = int(float(mainCircl.pop()))
+                toOperate1 = mainCircl.pop()
+                mainCircl.append(Circl([toOperate1] * n))
+
+            elif instruction == "τ":
+                toOperate1 = mainCircl.pop()
+                mainCircl.append(toOperate1)
+                mainCircl.append("circl" if type(toOperate1) is Circl else "string")
+
+            elif instruction == "⌂":
+                toOperate1 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    seen = []
+                    result = []
+                    for i in toOperate1.wholeList():
+                        if i not in seen:
+                            seen.append(i)
+                            result.append(i)
+                    mainCircl.append(Circl(result))
+                else:
+                    seen = []
+                    result = []
+                    for c in toOperate1:
+                        if c not in seen:
+                            seen.append(c)
+                            result.append(c)
+                    mainCircl.append("".join(result))
+
+            elif instruction == "⊤":
+                n = int(float(mainCircl.pop()))
+                items = []
+                for _ in range(n):
+                    items.append(mainCircl.pop())
+                mainCircl.append(Circl(list(reversed(items))))
+
+            elif instruction == "⊞":
+                mainCircl.append(str(programCounter))
+
+            elif instruction == "ν":
+                toOperate1 = mainCircl.pop()
+                toOperate2 = mainCircl.pop()
+                if type(toOperate1) is Circl:
+                    mainCircl.append(str(toOperate1.wholeList().count(toOperate2)))
+                else:
+                    mainCircl.append(str(toOperate1.count(toOperate2)))
             
             else:
                 mainCircl.append(instruction)
