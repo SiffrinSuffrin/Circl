@@ -95,8 +95,8 @@ def execute(mainCircl):
                 mainCircl.append(toOperate2)
 
             elif instruction == "@":
-                idx = mainCircl.pop()
-                mainCircl.append(mainCircl.access(-(int(float(idx)) + 1)))
+                toOperate2 = mainCircl.pop()
+                mainCircl.append(mainCircl.access(-(int(float(toOperate2)) + 1)))
 
             elif instruction == "^":
                 toOperate1 = mainCircl.pop()
@@ -481,23 +481,19 @@ def execute(mainCircl):
                 toOperate1 = mainCircl.pop()
                 toOperate2 = mainCircl.pop()
                 toOperate3 = mainCircl.pop()
-                start = int(float(toOperate3))
-                end = int(float(toOperate2))
                 if type(toOperate1) is Circl:
-                    mainCircl.append(Circl(toOperate1.wholeList()[start:end]))
+                    mainCircl.append(Circl(toOperate1.wholeList()[int(float(toOperate3)):int(float(toOperate2))]))
                 else:
-                    mainCircl.append(toOperate1[start:end])
+                    mainCircl.append(toOperate1[int(float(toOperate3)):int(float(toOperate2))])
 
             elif instruction == "↔":
                 toOperate1 = mainCircl.pop()
                 toOperate2 = mainCircl.pop()
                 toOperate3 = mainCircl.pop()
-                needle = toOperate3
-                replacement = toOperate2
                 if type(toOperate1) is Circl:
-                    mainCircl.append(Circl([i.replace(needle, replacement) if type(i) is str else i for i in toOperate1.wholeList()]))
+                    mainCircl.append(Circl([i.replace(toOperate3, toOperate2) if type(i) is str else i for i in toOperate1.wholeList()]))
                 else:
-                    mainCircl.append(toOperate1.replace(needle, replacement))
+                    mainCircl.append(toOperate1.replace(toOperate3, toOperate2))
 
             elif instruction == "⬆":
                 toOperate1 = mainCircl.pop()
@@ -550,8 +546,7 @@ def execute(mainCircl):
                 toOperate1 = mainCircl.pop()
                 toOperate2 = mainCircl.pop()
                 if type(toOperate1) is Circl:
-                    lst = toOperate1.wholeList()
-                    mainCircl.append(str(lst.index(toOperate2)) if toOperate2 in lst else "-1")
+                    mainCircl.append(str(lst.index(toOperate2)) if toOperate2 in toOperate1.wholeList() else "-1")
                 else:
                     mainCircl.append(str(toOperate1.find(toOperate2)))
 
@@ -559,16 +554,13 @@ def execute(mainCircl):
                 toOperate1 = mainCircl.pop()
                 toOperate2 = mainCircl.pop()
                 if type(toOperate1) is Circl and type(toOperate2) is Circl:
-                    s1 = toOperate1.wholeList()
-                    mainCircl.append(Circl([x for x in toOperate2.wholeList() if x in s1]))
+                    mainCircl.append(Circl([i for i in toOperate2.wholeList() if i in set(toOperate1.wholeList())]))
                 elif type(toOperate1) is Circl:
-                    s1 = set(toOperate1.wholeList())
-                    mainCircl.append("".join(c for c in toOperate2 if c in s1))
+                    mainCircl.append("".join(i for i in toOperate2 if i in set(toOperate1.wholeList())))
                 elif type(toOperate2) is Circl:
-                    s2 = set(toOperate2.wholeList())
-                    mainCircl.append("".join(c for c in toOperate1 if c in s2))
+                    mainCircl.append("".join(i for i in toOperate1 if i in set(toOperate2.wholeList())))
                 else:
-                    mainCircl.append("".join(c for c in toOperate2 if c in toOperate1))
+                    mainCircl.append("".join(i for i in toOperate2 if i in toOperate1))
 
             elif instruction == "∪":
                 toOperate1 = mainCircl.pop()
@@ -576,35 +568,31 @@ def execute(mainCircl):
                 if type(toOperate1) is Circl and type(toOperate2) is Circl:
                     seen = set()
                     result = []
-                    for x in toOperate2.wholeList() + toOperate1.wholeList():
-                        if x not in seen:
-                            seen.add(x)
-                            result.append(x)
+                    for i in toOperate2.wholeList() + toOperate1.wholeList():
+                        if i not in seen:
+                            seen.add(i)
+                            result.append(i)
                     mainCircl.append(Circl(result))
                 else:
-                    s1 = toOperate2 if type(toOperate2) is str else "".join(toOperate2.wholeList())
-                    s2 = toOperate1 if type(toOperate1) is str else "".join(toOperate1.wholeList())
                     seen = set()
                     result = []
-                    for c in s1 + s2:
-                        if c not in seen:
-                            seen.add(c)
-                            result.append(c)
+                    for i in toOperate2 if type(toOperate2) is str else "".join(toOperate2.wholeList()) + toOperate1 if type(toOperate1) is str else "".join(toOperate1.wholeList()):
+                        if i not in seen:
+                            seen.add(i)
+                            result.append(i)
                     mainCircl.append("".join(result))
 
             elif instruction == "⊖":
                 toOperate1 = mainCircl.pop()
                 toOperate2 = mainCircl.pop()
                 if type(toOperate1) is Circl and type(toOperate2) is Circl:
-                    s1 = set(toOperate1.wholeList())
-                    mainCircl.append(Circl([x for x in toOperate2.wholeList() if x not in s1]))
+                    mainCircl.append(Circl([i for i in toOperate2.wholeList() if i not in set(toOperate1.wholeList())]))
                 elif type(toOperate1) is Circl:
-                    s1 = set(toOperate1.wholeList())
-                    mainCircl.append("".join(c for c in toOperate2 if c not in s1))
+                    mainCircl.append("".join(i for i in toOperate2 if i not in set(toOperate1.wholeList())))
                 elif type(toOperate2) is Circl:
-                    mainCircl.append(Circl([x for x in toOperate2.wholeList() if x != toOperate1]))
+                    mainCircl.append(Circl([i for x in toOperate2.wholeList() if i != toOperate1]))
                 else:
-                    mainCircl.append("".join(c for c in toOperate2 if c not in toOperate1))
+                    mainCircl.append("".join(i for i in toOperate2 if i not in toOperate1))
 
             elif instruction == "⊛":
                 toOperate1 = mainCircl.pop()
@@ -645,14 +633,14 @@ def execute(mainCircl):
 
             elif instruction == "χ":
                 toOperate1 = mainCircl.pop()
-                idx = mainCircl.pop()
-                val = mainCircl.pop()
+                toOperate2 = mainCircl.pop()
+                toOperate3 = mainCircl.pop()
                 if type(toOperate1) is Circl:
-                    toOperate1.set(int(float(idx)), val)
+                    toOperate1.set(int(float(toOperate2)), toOperate3)
                     mainCircl.append(toOperate1)
                 else:
                     lst = list(toOperate1)
-                    lst[int(float(idx))] = val
+                    lst[int(float(toOperate2))] = toOperate3
                     mainCircl.append("".join(lst))
             
             elif instruction == "≡":
@@ -826,9 +814,9 @@ def execute(mainCircl):
                     mainCircl.append(toOperate2 + toOperate1)
 
             elif instruction == "⊡":
-                n = int(float(mainCircl.pop()))
-                toOperate1 = mainCircl.pop()
-                mainCircl.append(Circl([toOperate1] * n))
+                toOperate1 = int(float(mainCircl.pop()))
+                toOperate2 = mainCircl.pop()
+                mainCircl.append(Circl([toOperate2] * toOperate1))
 
             elif instruction == "τ":
                 toOperate1 = mainCircl.pop()
@@ -848,16 +836,16 @@ def execute(mainCircl):
                 else:
                     seen = []
                     result = []
-                    for c in toOperate1:
-                        if c not in seen:
-                            seen.append(c)
-                            result.append(c)
+                    for i in toOperate1:
+                        if i not in seen:
+                            seen.append(i)
+                            result.append(i)
                     mainCircl.append("".join(result))
 
             elif instruction == "⊤":
-                n = int(float(mainCircl.pop()))
+                toOperate1 = int(float(mainCircl.pop()))
                 items = []
-                for _ in range(n):
+                for i in range(toOperate1):
                     items.append(mainCircl.pop())
                 mainCircl.append(Circl(list(reversed(items))))
 
