@@ -2,42 +2,30 @@ import time, random, sys
 
 from Circl import *
 
-def circl_gen(program:str) -> list[str]:
-    sub_string = False
-    temp_chars = ""
+def circl_gen(program:str,open_quotes="") -> tuple[Circl, int]:
     to_circl = []
-
-    for char in program:
-        if char in ('"', "'", "`"):
-            if not sub_string:
-                sub_string = True
-            else:
-                to_circl.append("".join(temp_chars))
-                temp_chars = ""
-                sub_string = False
+    last_substring_letter = -1
+    for i,char in enumerate(program):
+        if i <= last_substring_letter:
             continue
 
-        if sub_string:
-            temp_chars += char
+        if char in ('"', "'", "`"):
+            if open_quotes and open_quotes[-1] is char:
+                return Circl(to_circl), i+1
+            else:
+                sub_circl, skipable_letters = circl_gen(program[i+1:], open_quotes + char)
+                to_circl.append(sub_circl)
+                last_substring_letter = i + skipable_letters
         else:
             to_circl.append(char)
-    return to_circl
+
+    return Circl(to_circl), len(program)
 
 def decode(program:str=".") -> Circl:
-    main_circl = Circl(circl_gen(program))
+    main_circl, _ = circl_gen(program)
     print("Compiled a circl with radius ", main_circl.radius())
-
+    print(main_circl)
     return main_circl
-
-def recurse_circl(circl:Circl):
-    if type(circl) == str:
-        return circl
-    items = circl.whole_list()
-    to_print = []
-    for i in items:
-        to_print.append(recurse_circl(i))
-    return to_print
-
 
 def execute(main_circl):
     program_counter = 0
@@ -100,17 +88,11 @@ def execute(main_circl):
 
             elif instruction == "^":
                 to_operate1 = main_circl.pop()
-                if type(to_operate1) is Circl:
-                    print(recurse_circl(to_operate1))
-                else:
-                    print(to_operate1)
+                print(to_operate1)
 
             elif instruction == "§":
                 to_operate1 = main_circl.pop()
-                if type(to_operate1) is Circl:
-                    print(recurse_circl(to_operate1), end="")
-                else:
-                    print(to_operate1, end="")
+                print(to_operate1, end="")
 
             elif instruction == "←":
                 filename = main_circl.pop()
@@ -120,9 +102,8 @@ def execute(main_circl):
             elif instruction == "→":
                 filename = main_circl.pop()
                 to_operate1 = main_circl.pop()
-                content = recurse_circl(to_operate1) if type(to_operate1) is Circl else to_operate1
                 with open(filename, "w") as f:
-                    f.write(str(content))
+                    f.write(str(to_operate1))
                     
             elif instruction == "⇀":
                 to_operate1 = main_circl.pop()
@@ -865,7 +846,7 @@ def execute(main_circl):
             print("An Exception, ",e," occured. Pushing to stack and continuing")
             main_circl.append(str(e))
 
-        print(recurse_circl(main_circl))
+        print(main_circl)
         program_counter += 1
         time.sleep(0.01)
 

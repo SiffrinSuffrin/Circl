@@ -2,10 +2,23 @@ import math
 
 class Circl:
     def __init__(self, initial:list[str|Circl]|None=None):
+
         self.data:list[str|Circl] = initial if initial is not None else []
+
 
     def __len__(self) -> int:
         return len(self.data)
+
+    def __str__(self) -> str:
+        string = ""
+        for item in self.data:
+            if string:
+                string = f"{string},({item})" if isinstance(item, Circl) else f"{string},{item}"
+            else:
+                string = f"({item})" if isinstance(item, Circl) else f"{item}"
+
+        return string
+
 
     def extend(self, values:list[str|Circl]) -> None:
         self.data.extend(values)
