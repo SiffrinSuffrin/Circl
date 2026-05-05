@@ -1,4 +1,4 @@
-import time, math, random
+import time, math, random, sys
 from Circl import *
 
 def circlGen(program):
@@ -22,8 +22,7 @@ def circlGen(program):
             toCircl.append(char)
     return toCircl
 
-def decode():
-    program = '"a"Ψ⧺^Ω^.'
+def decode(program="."):
     mainCircl = Circl(circlGen(program))
     print("Compiled a circl with radius ", mainCircl.radius())
 
@@ -871,5 +870,8 @@ def execute(mainCircl):
         print(recurseCircl(mainCircl))
         programCounter += 1
         time.sleep(0.01)
-
-execute(decode())
+        
+if len(sys.argv) == 1:
+    execute(decode(input()))
+else:
+    execute(decode(input(sys.argv[1])))
