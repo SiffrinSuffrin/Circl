@@ -13,15 +13,15 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
                 # Check if to_circl has any Circl objects
                 has_circl = any(type(item) is Circl for item in to_circl)
                 if has_circl:
-                    return Circl(to_circl), i + 1
+                    return Circl(to_circl), i + 1 # push multicircl
                 else:
-                    return "".join(str(item) for item in to_circl), i + 1
+                    return "".join(str(item) for item in to_circl), i + 1 # push joined string
             else:
                 sub_circl, skipable_letters = circl_gen(program[i + 1:], open_quotes + char)
                 to_circl.append(sub_circl)
                 last_substring_letter = i + skipable_letters
         else:
-            to_circl.append(char)
+            to_circl.append(char) # append to main circl
 
     return Circl(to_circl), len(program)
 
