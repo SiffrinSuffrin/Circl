@@ -117,7 +117,7 @@ def execute(main_circl):
                 if type(to_operate1) is Circl:
                     main_circl.append(str(to_operate1.radius()))
                 else:
-                    main_circl.append(str(2*math.pi*len(to_operate1)))
+                    main_circl.append(str(len(to_operate1)/(2*math.pi)))
 
             elif instruction == "♯":
                 to_operate1 = main_circl.pop()
