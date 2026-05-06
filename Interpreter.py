@@ -1,5 +1,4 @@
 import time, random, sys
-
 from Circl import *
 
 
@@ -12,7 +11,12 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
 
         if char in ('"', "'", "`"):
             if open_quotes and open_quotes[-1] is char:
-                return Circl(to_circl), i + 1
+                # Check if to_circl has any Circl objects
+                has_circl = any(type(item) is Circl for item in to_circl)
+                if has_circl:
+                    return Circl(to_circl), i + 1
+                else:
+                    return "".join(str(item) for item in to_circl), i + 1
             else:
                 sub_circl, skipable_letters = circl_gen(program[i + 1:], open_quotes + char)
                 to_circl.append(sub_circl)
@@ -878,7 +882,7 @@ def execute(main_circl):
             print("An Exception, ", e, " occured. Pushing to stack and continuing")
             main_circl.append(str(e))
 
-        print(main_circl)
+        # print(main_circl)
         program_counter += 1
         time.sleep(0.01)
 
