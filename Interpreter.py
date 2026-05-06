@@ -1,7 +1,6 @@
 import time, random, sys
 from Circl import *
 
-
 def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
     to_circl = []
     last_substring_letter = -1

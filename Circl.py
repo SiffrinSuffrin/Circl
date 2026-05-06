@@ -5,7 +5,6 @@ class Circl:
 
         self.data:list[str|Circl] = initial if initial is not None else []
 
-
     def __len__(self) -> int:
         return len(self.data)
 
