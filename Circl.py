@@ -39,7 +39,7 @@ class Circl:
         return self.data[location % len(self)]
 
     def radius(self) -> float:
-        return (len(self) / math.pi) ** 0.5
+        return 2*math.pi*len(self)
 
     def whole_list(self) -> list[str|Circl]:
         return self.data
