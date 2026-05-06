@@ -122,14 +122,14 @@ def execute(main_circl):
             elif instruction == "♯":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(float(i)) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(float(i)) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(float(to_operate1)))
 
             elif instruction == "♭":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(int(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(int(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(int(float(to_operate1))))
 
@@ -138,28 +138,28 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 precision = int(float(to_operate2))
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([f"{float(i):.{precision}f}" for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([f"{float(i):.{precision}f}" for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(f"{float(to_operate1):.{precision}f}")
 
             elif instruction == "Ψ":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(ord(i)) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(ord(i)) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(ord(to_operate1)))
 
             elif instruction == "Ω":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(chr(int(float(i)))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(chr(int(float(i)))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(chr(int(float(to_operate1)))))
 
             elif instruction == "⚂":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(random.choice(to_operate1.wholeList()))
+                    main_circl.append(random.choice(to_operate1.whole_list()))
                 else:
                     if to_operate1 == "1":
                         main_circl.append(str(random.random()))
@@ -169,7 +169,7 @@ def execute(main_circl):
             elif instruction == "¬":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl(["1" if not float(i) else "0" for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl(["1" if not float(i) else "0" for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append("1" if not float(to_operate1) else "0")
 
@@ -178,13 +178,13 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     main_circl.append(Circl([str("1" if float(a) and float(b) else "0") for a, b in
-                                             zip(to_operate2.wholeList(), to_operate1.wholeList())]))
+                                             zip(to_operate2.whole_list(), to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
                     main_circl.append(
-                        Circl(["1" if float(to_operate2) and float(i) else "0" for i in to_operate1.wholeList()]))
+                        Circl(["1" if float(to_operate2) and float(i) else "0" for i in to_operate1.whole_list()]))
                 elif type(to_operate2) is Circl:
                     main_circl.append(
-                        Circl(["1" if float(i) and float(to_operate1) else "0" for i in to_operate2.wholeList()]))
+                        Circl(["1" if float(i) and float(to_operate1) else "0" for i in to_operate2.whole_list()]))
                 else:
                     main_circl.append("1" if float(to_operate1) and float(to_operate2) else "0")
 
@@ -193,13 +193,13 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     main_circl.append(Circl([str("1" if float(a) or float(b) else "0") for a, b in
-                                             zip(to_operate2.wholeList(), to_operate1.wholeList())]))
+                                             zip(to_operate2.whole_list(), to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
                     main_circl.append(
-                        Circl(["1" if float(to_operate2) or float(i) else "0" for i in to_operate1.wholeList()]))
+                        Circl(["1" if float(to_operate2) or float(i) else "0" for i in to_operate1.whole_list()]))
                 elif type(to_operate2) is Circl:
                     main_circl.append(
-                        Circl(["1" if float(i) or float(to_operate1) else "0" for i in to_operate2.wholeList()]))
+                        Circl(["1" if float(i) or float(to_operate1) else "0" for i in to_operate2.whole_list()]))
                 else:
                     main_circl.append("1" if float(to_operate1) or float(to_operate2) else "0")
 
@@ -208,13 +208,13 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     main_circl.append(Circl([str(int(float(a)) ^ int(float(b))) for a, b in
-                                             zip(to_operate2.wholeList(), to_operate1.wholeList())]))
+                                             zip(to_operate2.whole_list(), to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
                     main_circl.append(
-                        Circl([str(int(float(to_operate2)) ^ int(float(i))) for i in to_operate1.wholeList()]))
+                        Circl([str(int(float(to_operate2)) ^ int(float(i))) for i in to_operate1.whole_list()]))
                 elif type(to_operate2) is Circl:
                     main_circl.append(
-                        Circl([str(int(float(i)) ^ int(float(to_operate1))) for i in to_operate2.wholeList()]))
+                        Circl([str(int(float(i)) ^ int(float(to_operate1))) for i in to_operate2.whole_list()]))
                 else:
                     main_circl.append(str(int(float(to_operate1)) ^ int(float(to_operate2))))
 
@@ -223,13 +223,13 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     main_circl.append(Circl([str(int(float(a)) << int(float(b))) for a, b in
-                                             zip(to_operate2.wholeList(), to_operate1.wholeList())]))
+                                             zip(to_operate2.whole_list(), to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
                     main_circl.append(
-                        Circl([str(int(float(to_operate2)) << int(float(i))) for i in to_operate1.wholeList()]))
+                        Circl([str(int(float(to_operate2)) << int(float(i))) for i in to_operate1.whole_list()]))
                 elif type(to_operate2) is Circl:
                     main_circl.append(
-                        Circl([str(int(float(i)) << int(float(to_operate1))) for i in to_operate2.wholeList()]))
+                        Circl([str(int(float(i)) << int(float(to_operate1))) for i in to_operate2.whole_list()]))
                 else:
                     main_circl.append(str(int(float(to_operate2)) << int(float(to_operate1))))
 
@@ -238,13 +238,13 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     main_circl.append(Circl([str(int(float(a)) >> int(float(b))) for a, b in
-                                             zip(to_operate2.wholeList(), to_operate1.wholeList())]))
+                                             zip(to_operate2.whole_list(), to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
                     main_circl.append(
-                        Circl([str(int(float(to_operate2)) >> int(float(i))) for i in to_operate1.wholeList()]))
+                        Circl([str(int(float(to_operate2)) >> int(float(i))) for i in to_operate1.whole_list()]))
                 elif type(to_operate2) is Circl:
                     main_circl.append(
-                        Circl([str(int(float(i)) >> int(float(to_operate1))) for i in to_operate2.wholeList()]))
+                        Circl([str(int(float(i)) >> int(float(to_operate1))) for i in to_operate2.whole_list()]))
                 else:
                     main_circl.append(str(int(float(to_operate2)) >> int(float(to_operate1))))
 
@@ -252,7 +252,7 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
-                    main_circl.append("1" if to_operate1.wholeList() == to_operate2.wholeList() else "0")
+                    main_circl.append("1" if to_operate1.whole_list() == to_operate2.whole_list() else "0")
                 else:
                     main_circl.append("1" if to_operate1 == to_operate2 else "0")
 
@@ -260,7 +260,7 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
-                    main_circl.append("0" if to_operate1.wholeList() == to_operate2.wholeList() else "1")
+                    main_circl.append("0" if to_operate1.whole_list() == to_operate2.whole_list() else "1")
                 else:
                     main_circl.append("0" if to_operate1 == to_operate2 else "1")
 
@@ -313,7 +313,7 @@ def execute(main_circl):
                 n = int(float(main_circl.pop()))
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    items = to_operate1.wholeList()
+                    items = to_operate1.whole_list()
                     n = n % len(items) if items else 0
                     main_circl.append(Circl(items[n:] + items[:n]))
                 else:
@@ -324,7 +324,7 @@ def execute(main_circl):
                 n = int(float(main_circl.pop()))
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    items = to_operate1.wholeList()
+                    items = to_operate1.whole_list()
                     n = n % len(items) if items else 0
                     main_circl.append(Circl(items[-n:] + items[:-n]) if n else Circl(items))
                 else:
@@ -335,7 +335,7 @@ def execute(main_circl):
                 n = int(float(main_circl.pop()))
                 length = len(main_circl)
                 n = n % length if length else 0
-                items = main_circl.wholeList()
+                items = main_circl.whole_list()
                 rotated = items[n:] + items[:n]
                 while len(main_circl) > 0:
                     main_circl.pop()
@@ -347,8 +347,8 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
                     #TODO: add step argument
-                    main_circl.append(Circl([str(x) for x in range(int(float(to_operate1.wholeList()[0])),
-                                                                   int(float(to_operate1.wholeList()[1])))]))
+                    main_circl.append(Circl([str(x) for x in range(int(float(to_operate1.whole_list()[0])),
+                                                                   int(float(to_operate1.whole_list()[1])))]))
                 else:
                     main_circl.append(Circl([str(x) for x in range(int(float(to_operate1)))]))
 
@@ -356,21 +356,21 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
                     main_circl.append(
-                        Circl(Circl(str(x) for x in range(int(float(i)))) for i in to_operate1.wholeList()))
+                        Circl(Circl(str(x) for x in range(int(float(i)))) for i in to_operate1.whole_list()))
                 else:
                     main_circl.append(Circl(str(x) for x in range(int(float(to_operate1)))))
 
             elif instruction == "²":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(float(i) ** 2) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(float(i) ** 2) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(float(to_operate1) ** 2))
 
             elif instruction == "√":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(float(i) ** 0.5) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(float(i) ** 0.5) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(float(to_operate1) ** 0.5))
 
@@ -379,32 +379,32 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     main_circl.append(Circl(
-                        [str(float(a) ** float(b)) for a, b in zip(to_operate2.wholeList(), to_operate1.wholeList())]))
+                        [str(float(a) ** float(b)) for a, b in zip(to_operate2.whole_list(), to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(float(to_operate2) ** float(i)) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(float(to_operate2) ** float(i)) for i in to_operate1.whole_list()]))
                 elif type(to_operate2) is Circl:
-                    main_circl.append(Circl([str(float(i) ** float(to_operate1)) for i in to_operate2.wholeList()]))
+                    main_circl.append(Circl([str(float(i) ** float(to_operate1)) for i in to_operate2.whole_list()]))
                 else:
                     main_circl.append(str(float(to_operate2) ** float(to_operate1)))
 
             elif instruction == "⌊":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(math.floor(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(math.floor(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(math.floor(float(to_operate1))))
 
             elif instruction == "⌈":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(math.ceil(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(math.ceil(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(math.ceil(float(to_operate1))))
 
             elif instruction == "○":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(round(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(round(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(round(float(to_operate1))))
 
@@ -412,9 +412,9 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(max(to_operate1.wholeList(), key=lambda x: float(x)))
+                    main_circl.append(max(to_operate1.whole_list(), key=lambda x: float(x)))
                 elif type(to_operate2) is Circl:
-                    main_circl.append(max(to_operate2.wholeList(), key=lambda x: float(x)))
+                    main_circl.append(max(to_operate2.whole_list(), key=lambda x: float(x)))
                 else:
                     main_circl.append(str(max(float(to_operate1), float(to_operate2))))
 
@@ -422,58 +422,58 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(min(to_operate1.wholeList(), key=lambda x: float(x)))
+                    main_circl.append(min(to_operate1.whole_list(), key=lambda x: float(x)))
                 elif type(to_operate2) is Circl:
-                    main_circl.append(min(to_operate2.wholeList(), key=lambda x: float(x)))
+                    main_circl.append(min(to_operate2.whole_list(), key=lambda x: float(x)))
                 else:
                     main_circl.append(str(min(float(to_operate1), float(to_operate2))))
 
             elif instruction == "|":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(abs(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(abs(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(abs(float(to_operate1))))
 
             elif instruction == "ℓ":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(math.log(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(math.log(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(math.log(float(to_operate1))))
 
             elif instruction == "ℒ":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(math.log10(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(math.log10(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(math.log10(float(to_operate1))))
 
             elif instruction == "∿":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(math.sin(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(math.sin(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(math.sin(float(to_operate1))))
 
             elif instruction == "⌒":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(math.cos(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(math.cos(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(math.cos(float(to_operate1))))
 
             elif instruction == "∡":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(math.tan(float(i))) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(math.tan(float(i))) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(math.tan(float(to_operate1))))
 
             elif instruction == "✄":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([Circl(list(i)) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([Circl(list(i)) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(Circl(list(to_operate1)))
 
@@ -482,7 +482,7 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 to_operate3 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl(to_operate1.wholeList()[int(float(to_operate3)):int(float(to_operate2))]))
+                    main_circl.append(Circl(to_operate1.whole_list()[int(float(to_operate3)):int(float(to_operate2))]))
                 else:
                     main_circl.append(to_operate1[int(float(to_operate3)):int(float(to_operate2))])
 
@@ -492,28 +492,28 @@ def execute(main_circl):
                 to_operate3 = main_circl.pop()
                 if type(to_operate1) is Circl:
                     main_circl.append(Circl([i.replace(to_operate3, to_operate2) if type(i) is str else i for i in
-                                             to_operate1.wholeList()]))
+                                             to_operate1.whole_list()]))
                 else:
                     main_circl.append(to_operate1.replace(to_operate3, to_operate2))
 
             elif instruction == "⬆":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([i.upper() for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([i.upper() for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(to_operate1.upper())
 
             elif instruction == "⬇":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([i.lower() for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([i.lower() for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(to_operate1.lower())
 
             elif instruction == "∑":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(str(sum(float(i) for i in to_operate1.wholeList())))
+                    main_circl.append(str(sum(float(i) for i in to_operate1.whole_list())))
                 else:
                     main_circl.append(to_operate1)
 
@@ -521,7 +521,7 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
                     result = 1.0
-                    for i in to_operate1.wholeList():
+                    for i in to_operate1.whole_list():
                         result *= float(i)
                     main_circl.append(str(result))
                 else:
@@ -531,7 +531,7 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append("1" if to_operate2 in to_operate1.wholeList() else "0")
+                    main_circl.append("1" if to_operate2 in to_operate1.whole_list() else "0")
                 else:
                     main_circl.append("1" if to_operate2 in to_operate1 else "0")
 
@@ -539,7 +539,7 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append("1" if to_operate2 not in to_operate1.wholeList() else "0")
+                    main_circl.append("1" if to_operate2 not in to_operate1.whole_list() else "0")
                 else:
                     main_circl.append("1" if to_operate2 not in to_operate1 else "0")
 
@@ -547,7 +547,7 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(str(lst.index(to_operate2)) if to_operate2 in to_operate1.wholeList() else "-1")
+                    main_circl.append(str(lst.index(to_operate2)) if to_operate2 in to_operate1.whole_list() else "-1")
                 else:
                     main_circl.append(str(to_operate1.find(to_operate2)))
 
@@ -555,11 +555,11 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
-                    main_circl.append(Circl([i for i in to_operate2.wholeList() if i in set(to_operate1.wholeList())]))
+                    main_circl.append(Circl([i for i in to_operate2.whole_list() if i in set(to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
-                    main_circl.append("".join(i for i in to_operate2 if i in set(to_operate1.wholeList())))
+                    main_circl.append("".join(i for i in to_operate2 if i in set(to_operate1.whole_list())))
                 elif type(to_operate2) is Circl:
-                    main_circl.append("".join(i for i in to_operate1 if i in set(to_operate2.wholeList())))
+                    main_circl.append("".join(i for i in to_operate1 if i in set(to_operate2.whole_list())))
                 else:
                     main_circl.append("".join(i for i in to_operate2 if i in to_operate1))
 
@@ -569,7 +569,7 @@ def execute(main_circl):
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     seen = set()
                     result = []
-                    for i in to_operate2.wholeList() + to_operate1.wholeList():
+                    for i in to_operate2.whole_list() + to_operate1.whole_list():
                         if i not in seen:
                             seen.add(i)
                             result.append(i)
@@ -578,8 +578,8 @@ def execute(main_circl):
                     seen = set()
                     result = []
                     for i in to_operate2 if type(to_operate2) is str else "".join(
-                            to_operate2.wholeList()) + to_operate1 if type(to_operate1) is str else "".join(
-                            to_operate1.wholeList()):
+                            to_operate2.whole_list()) + to_operate1 if type(to_operate1) is str else "".join(
+                            to_operate1.whole_list()):
                         if i not in seen:
                             seen.add(i)
                             result.append(i)
@@ -590,11 +590,11 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     main_circl.append(
-                        Circl([i for i in to_operate2.wholeList() if i not in set(to_operate1.wholeList())]))
+                        Circl([i for i in to_operate2.whole_list() if i not in set(to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
-                    main_circl.append("".join(i for i in to_operate2 if i not in set(to_operate1.wholeList())))
+                    main_circl.append("".join(i for i in to_operate2 if i not in set(to_operate1.whole_list())))
                 elif type(to_operate2) is Circl:
-                    main_circl.append(Circl([i for x in to_operate2.wholeList() if i != to_operate1]))
+                    main_circl.append(Circl([i for x in to_operate2.whole_list() if i != to_operate1]))
                 else:
                     main_circl.append("".join(i for i in to_operate2 if i not in to_operate1))
 
@@ -603,20 +603,20 @@ def execute(main_circl):
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
                     main_circl.append(
-                        Circl([Circl([a, b]) for a, b in zip(to_operate2.wholeList(), to_operate1.wholeList())]))
+                        Circl([Circl([a, b]) for a, b in zip(to_operate2.whole_list(), to_operate1.whole_list())]))
                 elif type(to_operate1) is Circl:
                     main_circl.append(
-                        Circl([Circl([a, b]) for a, b in zip(list(to_operate2), to_operate1.wholeList())]))
+                        Circl([Circl([a, b]) for a, b in zip(list(to_operate2), to_operate1.whole_list())]))
                 elif type(to_operate2) is Circl:
                     main_circl.append(
-                        Circl([Circl([a, b]) for a, b in zip(to_operate2.wholeList(), list(to_operate1))]))
+                        Circl([Circl([a, b]) for a, b in zip(to_operate2.whole_list(), list(to_operate1))]))
                 else:
                     main_circl.append(Circl([Circl([a, b]) for a, b in zip(list(to_operate2), list(to_operate1))]))
 
             elif instruction == "Δ":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    items = to_operate1.wholeList()
+                    items = to_operate1.whole_list()
                     main_circl.append(
                         Circl([str(float(items[i + 1]) - float(items[i])) for i in range(len(items) - 1)]))
                 else:
@@ -628,7 +628,7 @@ def execute(main_circl):
             elif instruction == "κ":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl(sorted(to_operate1.wholeList(),
+                    main_circl.append(Circl(sorted(to_operate1.whole_list(),
                                                    key=lambda x: float(x) if x.replace('.', '', 1).lstrip(
                                                        '-').isdigit() else x)))
                 else:
@@ -637,7 +637,7 @@ def execute(main_circl):
             elif instruction == "ρ":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl(list(reversed(to_operate1.wholeList()))))
+                    main_circl.append(Circl(list(reversed(to_operate1.whole_list()))))
                 else:
                     main_circl.append(to_operate1[::-1])
 
@@ -656,7 +656,7 @@ def execute(main_circl):
             elif instruction == "≡":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    if to_operate1.wholeList()[1:] == to_operate1.wholeList()[:-1]:
+                    if to_operate1.whole_list()[1:] == to_operate1.whole_list()[:-1]:
                         main_circl.append("1")
                     else:
                         main_circl.append("0")
@@ -673,7 +673,7 @@ def execute(main_circl):
             elif instruction == "_":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    for i in to_operate1.wholeList():
+                    for i in to_operate1.whole_list():
                         main_circl.append(i)
 
             elif instruction == "⋃":
@@ -682,17 +682,17 @@ def execute(main_circl):
                 if type(to_operate1) is Circl:
                     if type(to_operate2) is Circl:
                         new_elements = []
-                        base_list = to_operate1.wholeList()
-                        for separator in to_operate2.wholeList():
+                        base_list = to_operate1.whole_list()
+                        for separator in to_operate2.whole_list():
                             joined_str = separator.join(base_list)
                             new_elements.append(Circl(joined_str))
 
                         main_circl.append(Circl(new_elements))
                     else:
-                        main_circl.append(to_operate2.join(to_operate1.wholeList()))
+                        main_circl.append(to_operate2.join(to_operate1.whole_list()))
                 else:
                     if type(to_operate2) is Circl:
-                        main_circl.append(to_operate1.join(to_operate2.wholeList()))
+                        main_circl.append(to_operate1.join(to_operate2.whole_list()))
                     else:
                         main_circl.append(to_operate2.join(list(to_operate1)))
 
@@ -702,15 +702,15 @@ def execute(main_circl):
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
                         new = []
-                        for elem in to_operate2.wholeList():
-                            new.append(Circl(i.split(elem) for i in to_operate1.wholeList()))
+                        for elem in to_operate2.whole_list():
+                            new.append(Circl(i.split(elem) for i in to_operate1.whole_list()))
                         main_circl.append(Circl(new))
                     else:
-                        main_circl.append(Circl(i.split(to_operate2) for i in to_operate1.wholeList()))
+                        main_circl.append(Circl(i.split(to_operate2) for i in to_operate1.whole_list()))
                 else:
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
-                        main_circl.append(Circl(i.split(to_operate1) for i in to_operate2.wholeList()))
+                        main_circl.append(Circl(i.split(to_operate1) for i in to_operate2.whole_list()))
                     else:
                         main_circl.append(Circl(to_operate1.split(to_operate2)))
 
@@ -720,15 +720,15 @@ def execute(main_circl):
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
                         new = []
-                        for elem in to_operate1.wholeList():
-                            new.append(Circl([str(float(i) + float(elem)) for i in to_operate2.wholeList()]))
+                        for elem in to_operate1.whole_list():
+                            new.append(Circl([str(float(i) + float(elem)) for i in to_operate2.whole_list()]))
                         main_circl.append(Circl(new))
                     else:
-                        main_circl.append(Circl([str(float(to_operate2) + float(i)) for i in to_operate1.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate2) + float(i)) for i in to_operate1.whole_list()]))
                 else:
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
-                        main_circl.append(Circl([str(float(to_operate1) + float(i)) for i in to_operate2.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate1) + float(i)) for i in to_operate2.whole_list()]))
                     else:
                         main_circl.append(str(float(to_operate1) + float(to_operate2)))
 
@@ -738,15 +738,15 @@ def execute(main_circl):
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
                         new = []
-                        for elem in to_operate1.wholeList():
-                            new.append(Circl([str(float(i) - float(elem)) for i in to_operate2.wholeList()]))
+                        for elem in to_operate1.whole_list():
+                            new.append(Circl([str(float(i) - float(elem)) for i in to_operate2.whole_list()]))
                         main_circl.append(Circl(new))
                     else:
-                        main_circl.append(Circl([str(float(to_operate2) - float(i)) for i in to_operate1.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate2) - float(i)) for i in to_operate1.whole_list()]))
                 else:
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
-                        main_circl.append(Circl([str(float(to_operate1) - float(i)) for i in to_operate2.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate1) - float(i)) for i in to_operate2.whole_list()]))
                     else:
                         main_circl.append(str(float(to_operate1) - float(to_operate2)))
 
@@ -756,15 +756,15 @@ def execute(main_circl):
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
                         new = []
-                        for elem in to_operate1.wholeList():
-                            new.append(Circl([str(float(i) * float(elem)) for i in to_operate2.wholeList()]))
+                        for elem in to_operate1.whole_list():
+                            new.append(Circl([str(float(i) * float(elem)) for i in to_operate2.whole_list()]))
                         main_circl.append(Circl(new))
                     else:
-                        main_circl.append(Circl([str(float(to_operate2) * float(i)) for i in to_operate1.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate2) * float(i)) for i in to_operate1.whole_list()]))
                 else:
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
-                        main_circl.append(Circl([str(float(to_operate1) * float(i)) for i in to_operate2.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate1) * float(i)) for i in to_operate2.whole_list()]))
                     else:
                         main_circl.append(str(float(to_operate1) * float(to_operate2)))
 
@@ -774,15 +774,15 @@ def execute(main_circl):
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
                         new = []
-                        for elem in to_operate1.wholeList():
-                            new.append(Circl([str(float(i) / float(elem)) for i in to_operate2.wholeList()]))
+                        for elem in to_operate1.whole_list():
+                            new.append(Circl([str(float(i) / float(elem)) for i in to_operate2.whole_list()]))
                         main_circl.append(Circl(new))
                     else:
-                        main_circl.append(Circl([str(float(to_operate2) / float(i)) for i in to_operate1.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate2) / float(i)) for i in to_operate1.whole_list()]))
                 else:
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
-                        main_circl.append(Circl([str(float(to_operate1) / float(i)) for i in to_operate2.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate1) / float(i)) for i in to_operate2.whole_list()]))
                     else:
                         main_circl.append(str(float(to_operate1) / float(to_operate2)))
 
@@ -792,22 +792,22 @@ def execute(main_circl):
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
                         new = []
-                        for elem in to_operate1.wholeList():
-                            new.append(Circl([str(float(i) % float(elem)) for i in to_operate2.wholeList()]))
+                        for elem in to_operate1.whole_list():
+                            new.append(Circl([str(float(i) % float(elem)) for i in to_operate2.whole_list()]))
                         main_circl.append(Circl(new))
                     else:
-                        main_circl.append(Circl([str(float(to_operate2) % float(i)) for i in to_operate1.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate2) % float(i)) for i in to_operate1.whole_list()]))
                 else:
                     to_operate2 = main_circl.pop()
                     if type(to_operate2) is Circl:
-                        main_circl.append(Circl([str(float(to_operate1) % float(i)) for i in to_operate2.wholeList()]))
+                        main_circl.append(Circl([str(float(to_operate1) % float(i)) for i in to_operate2.whole_list()]))
                     else:
                         main_circl.append(str(float(to_operate1) % float(to_operate2)))
 
             elif instruction == "⁻":
                 to_operate1 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(Circl([str(-float(i)) for i in to_operate1.wholeList()]))
+                    main_circl.append(Circl([str(-float(i)) for i in to_operate1.whole_list()]))
                 else:
                     main_circl.append(str(-float(to_operate1)))
 
@@ -815,11 +815,11 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl and type(to_operate2) is Circl:
-                    main_circl.append(Circl(to_operate2.wholeList() + to_operate1.wholeList()))
+                    main_circl.append(Circl(to_operate2.whole_list() + to_operate1.whole_list()))
                 elif type(to_operate1) is Circl:
-                    main_circl.append(Circl([to_operate2] + to_operate1.wholeList()))
+                    main_circl.append(Circl([to_operate2] + to_operate1.whole_list()))
                 elif type(to_operate2) is Circl:
-                    main_circl.append(Circl(to_operate2.wholeList() + [to_operate1]))
+                    main_circl.append(Circl(to_operate2.whole_list() + [to_operate1]))
                 else:
                     main_circl.append(to_operate2 + to_operate1)
 
@@ -838,7 +838,7 @@ def execute(main_circl):
                 if type(to_operate1) is Circl:
                     seen = []
                     result = []
-                    for i in to_operate1.wholeList():
+                    for i in to_operate1.whole_list():
                         if i not in seen:
                             seen.append(i)
                             result.append(i)
@@ -866,7 +866,7 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(str(to_operate1.wholeList().count(to_operate2)))
+                    main_circl.append(str(to_operate1.whole_list().count(to_operate2)))
                 else:
                     main_circl.append(str(to_operate1.count(to_operate2)))
 
