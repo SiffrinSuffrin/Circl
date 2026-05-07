@@ -550,7 +550,7 @@ def execute(main_circl):
                 to_operate1 = main_circl.pop()
                 to_operate2 = main_circl.pop()
                 if type(to_operate1) is Circl:
-                    main_circl.append(str(lst.index(to_operate2)) if to_operate2 in to_operate1.whole_list() else "-1")
+                    main_circl.append(str(to_operate1.index(to_operate2)) if to_operate2 in to_operate1.whole_list() else "-1")
                 else:
                     main_circl.append(str(to_operate1.find(to_operate2)))
 
