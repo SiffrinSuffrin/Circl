@@ -1,12 +1,11 @@
-import time, sys
+import sys
+import time
+import traceback
 
 from Circl import Circl
-from Program import Program
 from InstructionSet import instruction_set, Instruction
+from Program import main_program
 
-# BEGIN MAIN PROGRAM DECLARATION
-main_program = Program()
-# END MAIN PROGRAM DECLARATION
 
 def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
     to_circl = []
@@ -17,54 +16,58 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
 
         if char in ('"', "'", "`"): #TODO: add {} and () and [] support
             if open_quotes and open_quotes[-1] is char:
-                return Circl(to_circl), i + 1 # push multicircl
+                return Circl(to_circl), i + 1  # push multicircl
             else:
                 sub_circl, skipable_letters = circl_gen(program[i + 1:], open_quotes + char)
                 to_circl.append(sub_circl)
                 last_substring_letter = i + skipable_letters
         else:
-            to_circl.append(char) # append to main circl
+            to_circl.append(char)  # append to main circl
 
     return Circl(to_circl), len(program)
 
 
 def decode(program: str = ".") -> Circl:
     main_circl, _ = circl_gen(program)
+    # print(main_circl)
     print("Compiled a circl with radius ", main_circl.radius())
-    #print(main_circl)
     return main_circl
 
-def execute(main_circl):
 
+def execute(executing_circl):
+    main_program.add_counter()
     while True:
-        if len(main_circl) == 0:
+        if len(executing_circl) == 0:
+            main_program.remove_counter()
             break
         try:
-            command = main_circl.access(main_program.counter)
-            instruction: Instruction | None = instruction_set.get(command, None)
-            if instruction:
-                # instruction exists for command -> execute it
-                if instruction.affects_counter:
-                    instruction.operation(main_circl, main_program)
-                elif instruction.calls_subroutine:
-                    instruction.operation(main_circl, execute)
-                else:
-                    instruction.operation(main_circl)
+            current_step = main_program.get_counter()
+            command = executing_circl.access(current_step)
+
+            if isinstance(command, Circl) or command not in instruction_set.keys():
+                executing_circl.append(command)
             else:
-                # unrecognized command -> append and continue
-                main_circl.append(command)
+                instruction: Instruction = instruction_set[command]
+
+                # instruction exists for command -> execute it
+                if instruction.calls_subroutine:
+                    instruction.operation(executing_circl, execute)
+                else:
+                    instruction.operation(executing_circl)
 
         except Exception as e:
+            traceback.print_exception(e)
             print("An Exception, ", e, " occured. Pushing to stack and continuing")
-            main_circl.append(str(e))
+            executing_circl.append(str(e))
 
-        # print(main_circl)
-        main_program.counter += 1
+        main_program.increment_counter()
+        # print(" " * 4 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
         time.sleep(0.01)
 
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
+        print("Put in circle string:")
         execute(decode(input()))
     else:
-        execute(decode(input(sys.argv[1])))
+        execute(decode(sys.argv[1]))
