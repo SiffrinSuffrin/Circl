@@ -8,7 +8,7 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
         if i <= last_substring_letter:
             continue
 
-        if char in ('"', "'", "`","{","}","[","]"):
+        if char in ('"', "'", "`"):
             if open_quotes and open_quotes[-1] is char:
                 return Circl(to_circl), i + 1 # push multicircl
             else:
