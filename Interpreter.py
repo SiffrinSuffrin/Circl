@@ -2,7 +2,11 @@ import time, sys
 
 from Circl import Circl
 from Program import Program
-from InstructionSet import instruction_set
+from InstructionSet import instruction_set, Instruction
+
+# BEGIN MAIN PROGRAM DECLARATION
+main_program = Program()
+# END MAIN PROGRAM DECLARATION
 
 def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
     to_circl = []
@@ -27,21 +31,25 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
 def decode(program: str = ".") -> Circl:
     main_circl, _ = circl_gen(program)
     print("Compiled a circl with radius ", main_circl.radius())
-    print(main_circl)
+    #print(main_circl)
     return main_circl
 
 def execute(main_circl):
-    main_program = Program()
 
     while True:
         if len(main_circl) == 0:
             break
         try:
             command = main_circl.access(main_program.counter)
-            instruction = instruction_set.get(command, None)
+            instruction: Instruction | None = instruction_set.get(command, None)
             if instruction:
                 # instruction exists for command -> execute it
-                instruction(main_circl, main_program)
+                if instruction.affects_counter:
+                    instruction.operation(main_circl, main_program)
+                elif instruction.calls_subroutine:
+                    instruction.operation(main_circl, execute)
+                else:
+                    instruction.operation(main_circl)
             else:
                 # unrecognized command -> append and continue
                 main_circl.append(command)
