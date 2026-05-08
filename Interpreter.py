@@ -13,8 +13,11 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
     for i, char in enumerate(program):
         if i <= last_substring_letter:
             continue
-
-        if char in ('"', "'", "`"): #TODO: add {} and () and [] support
+        # TODO: add {} and () and [] for subcircles
+        # TODO: make the quotes " ' ` put in a single string instead of a subcircle
+        # TODO: add \ for escaping characters
+        # 
+        if char in ('"', "'", "`"):
             if open_quotes and open_quotes[-1] is char:
                 return Circl(to_circl), i + 1  # push multicircl
             else:
@@ -37,6 +40,7 @@ def decode(program: str = ".") -> Circl:
 def execute(executing_circl):
     main_program.add_counter()
     while True:
+        # print("-" * 2 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
         if len(executing_circl) == 0:
             main_program.remove_counter()
             break
@@ -61,7 +65,6 @@ def execute(executing_circl):
             executing_circl.append(str(e))
 
         main_program.increment_counter()
-        # print(" " * 4 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
         time.sleep(0.01)
 
 

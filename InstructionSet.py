@@ -70,10 +70,7 @@ def c_move_top(main_circl: Circl):
 
 def c_println(main_circl: Circl):
     to_operate1 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        print("".join([str(obj) for obj in to_operate1.whole_list()]))
-    else:
-        print(to_operate1)
+    print(to_operate1)
 
 
 def c_print(main_circl: Circl):
