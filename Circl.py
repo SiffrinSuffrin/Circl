@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import math
 
+
 class Circl:
     def __init__(self, initial:list[str|Circl]|None=None):
 
@@ -149,6 +150,12 @@ class Circl:
         return Circl(list(map(lambda x: str(math.floor(float(x))), self.data)))
     def __ceil__(self):
         return Circl(list(map(lambda x: str(math.ceil(float(x))), self.data)))
+
+    def __int__(self):
+        raise RuntimeError("Tried to convert a Circl to an integer")
+
+    def __float__(self):
+        raise RuntimeError("Tried to convert a Circl to an float")
 
     def extend(self, values:list[str|Circl]) -> None:
         self.data.extend(values)
