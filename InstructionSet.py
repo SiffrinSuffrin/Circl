@@ -6,6 +6,7 @@ from typing import Dict
 from Circl import Circl
 from Program import main_program
 
+var_circl = Circl() #TODO: Please find a better way to do this
 
 def c_halt(main_circl: Circl):
     while len(main_circl) > 0:
@@ -935,6 +936,24 @@ def c_count(main_circl: Circl):
     else:
         main_circl.append(str(to_operate1.count(to_operate2)))
 
+def c_var_push(main_circl: Circl):
+    to_operate1 = main_circl.pop()
+    to_operate2 = main_circl.pop()
+    id_ = hash(to_operate1)
+    for i in var_circl.whole_list():
+        if i.access(0) == id_:
+            i.set(1, to_operate2)
+            return
+    var_circl.append(Circl([id_, to_operate2]))
+
+def c_var_pull(main_circl: Circl):
+    to_operate1 = main_circl.pop()
+    looking = hash(to_operate1)
+    for i in var_circl.whole_list():
+        if i.access(0) == looking:
+            main_circl.append(i.access(1))
+            break
+
 # MAIN INSTRUCTION SET
 # Each declared function above should correspond to a character (i.e. command)
 class Instruction:
@@ -1038,5 +1057,7 @@ instruction_set: Dict[str, Instruction] = {
     "⌂": Instruction(c_unknown_instruction6),
     "⊤": Instruction(c_unknown_instruction7),
     "⊞": Instruction(c_append_program_counter),
-    "ν": Instruction(c_count)
+    "ν": Instruction(c_count),
+    "↦": Instruction(c_var_push),
+    "↤": Instruction(c_var_pull)
 }
