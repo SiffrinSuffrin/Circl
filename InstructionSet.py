@@ -169,32 +169,32 @@ def c_conjoin(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl(["1" if a and b else "0" for a, b in
+        main_circl.append(Circl([a and b for a, b in
                                  zip(to_operate2, to_operate1)]))
     elif isinstance(to_operate1, Circl):
         main_circl.append(
-            Circl(["1" if to_operate2 and i else "0" for i in to_operate1]))
+            Circl([to_operate2 and i for i in to_operate1]))
     elif isinstance(to_operate2, Circl):
         main_circl.append(
-            Circl(["1" if i and to_operate1 else "0" for i in to_operate2]))
+            Circl([i and to_operate1 for i in to_operate2]))
     else:
-        main_circl.append("1" if to_operate1 and to_operate2 else "0")
+        main_circl.append(to_operate1 and to_operate2)
 
 
 def c_disjoin(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl(["1" if a or b else "0" for a, b in
+        main_circl.append(Circl([a or b for a, b in
                                  zip(to_operate2, to_operate1)]))
     elif isinstance(to_operate1, Circl):
         main_circl.append(
-            Circl(["1" if to_operate2 or i else "0" for i in to_operate1]))
+            Circl([to_operate2 or i for i in to_operate1]))
     elif isinstance(to_operate2, Circl):
         main_circl.append(
-            Circl(["1" if i or to_operate1 else "0" for i in to_operate2]))
+            Circl([i or to_operate1 for i in to_operate2]))
     else:
-        main_circl.append("1" if to_operate1 or to_operate2 else "0")
+        main_circl.append(to_operate1 or to_operate2)
 
 
 def c_logical_xor(main_circl: Circl):
@@ -562,19 +562,14 @@ def c_mul(main_circl: Circl):
 def c_contains(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        main_circl.append("1" if to_operate2 in to_operate1 else "0")
-    else:
-        main_circl.append("1" if to_operate2 in to_operate1 else "0")
+    main_circl.append(to_operate2 in to_operate1)
 
 
 def c_not_contains(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        main_circl.append("1" if to_operate2 not in to_operate1 else "0")
-    else:
-        main_circl.append("1" if to_operate2 not in to_operate1 else "0")
+    main_circl.append(to_operate2 not in to_operate1)
+
 
 
 def c_indexof(main_circl: Circl):
@@ -701,14 +696,14 @@ def c_equivalent(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         if to_operate1[1:] == to_operate1[:-1]:
-            main_circl.append("1")
+            main_circl.append(True)
         else:
-            main_circl.append("0")
+            main_circl.append(False)
     else:
         if list(to_operate1)[1:] == list(to_operate1)[:-1]:
-            main_circl.append("1")
+            main_circl.append(True)
         else:
-            main_circl.append("0")
+            main_circl.append(False)
 
 
 def c_circlify(main_circl: Circl):
