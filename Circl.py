@@ -1,7 +1,7 @@
 from __future__ import annotations
 import math
 
-type Point = int | str # primitive types
+type Point = int | float | str # primitive types
 
 class Circl(list['Circl|Point']):
     def __repr__(self) -> str:
