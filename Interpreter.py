@@ -25,6 +25,8 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
                 to_circl.append(sub_circl)
                 last_substring_letter = i + skipable_letters
         else:
+            if char.isnumeric():
+                char = int(char)
             to_circl.append(char)  # append to main circl
 
     return Circl(to_circl), len(program)
