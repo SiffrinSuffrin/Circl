@@ -33,7 +33,7 @@ class Circl(list['Circl|Point']):
                 return Circl([x - other for x in self])
 
     def __rsub__(self, other: Point) -> Circl:
-        return Circl([x - other for x in self])
+        return Circl([other - x for x in self])
 
     def __isub__(self, other: Circl | Point) -> Circl:
         self = self - other
