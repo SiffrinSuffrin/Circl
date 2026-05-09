@@ -114,7 +114,7 @@ class Circl(list['Circl|Point']):
         return super().__getitem__(index % len(self))
 
     def pop(self, index: int=-1) -> Circl | Point:
-        return super().pop(i % len(self))
+        return super().pop(index % len(self))
 
     def insert(self, index: int, obj: Circl | Point) -> Circl | Point:
         return super().insert(index % len(self), obj)
