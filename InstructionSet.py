@@ -18,15 +18,15 @@ def c_read_input(main_circl: Circl):
 
 
 def c_pi(main_circl: Circl):
-    main_circl.append(str(math.pi))
+    main_circl.append(math.pi)
 
 
 def c_e(main_circl: Circl):
-    main_circl.append(str(math.e))
+    main_circl.append(math.e)
 
 
 def c_inf(main_circl: Circl):
-    main_circl.append(str(math.inf))
+    main_circl.append(math.inf)
 
 
 def c_duplicate(main_circl: Circl):
@@ -66,7 +66,7 @@ def c_swap_last(main_circl: Circl):
 
 def c_move_top(main_circl: Circl):
     to_operate1 = main_circl.pop()
-    main_circl.append(main_circl.access(-(int(float(to_operate1)) + 1)))
+    main_circl.append(main_circl[to_operate1 + 1])
 
 
 def c_println(main_circl: Circl):
@@ -89,81 +89,80 @@ def c_write_file(main_circl: Circl):
     filename = main_circl.pop()
     to_operate1 = main_circl.pop()
     with open(filename, "w") as f:
-        f.write(str(to_operate1))
+        f.write(to_operate1)
 
 
 def c_length(main_circl: Circl):
     to_operate1 = main_circl.pop()
-    main_circl.append(str(len(to_operate1)))
+    main_circl.append(len(to_operate1))
 
 
 def c_radius(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(str(to_operate1.radius()))
+        main_circl.append(to_operate1.radius())
     else:
-        main_circl.append(str(len(to_operate1) / (2 * math.pi)))
+        main_circl.append(len(to_operate1) / (2 * math.pi))
 
 
 def c_cast_float(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([str(float(i)) for i in to_operate1.whole_list()]))
+        main_circl.append(Circl([float(i) for i in to_operate1]))
     else:
-        main_circl.append(str(float(to_operate1)))
+        main_circl.append(float(to_operate1))
 
 
 def c_cast_int(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([str(int(float(i))) for i in to_operate1.whole_list()]))
+        main_circl.append(Circl([int(i) for i in to_operate1]))
     else:
-        main_circl.append(str(int(float(to_operate1))))
+        main_circl.append(int(to_operate1))
 
 
 def c_to_precision(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
-    precision = int(float(to_operate2))
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([f"{float(i):.{precision}f}" for i in to_operate1.whole_list()]))
+        main_circl.append(Circl([f"{i:.{precision}f}" for i in to_operate1]))
     else:
-        main_circl.append(f"{float(to_operate1):.{precision}f}")
+        main_circl.append(f"{to_operate1:.{precision}f}")
 
 
 def c_ordinal(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([str(ord(i)) for i in to_operate1.whole_list()]))
+        main_circl.append(Circl([ord(i) for i in to_operate1]))
     else:
-        main_circl.append(str(ord(to_operate1)))
+        main_circl.append(ord(to_operate1))
 
 
 def c_cast_char(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([str(chr(int(float(i)))) for i in to_operate1.whole_list()]))
+        main_circl.append(Circl([chr(i) for i in to_operate1]))
     else:
-        main_circl.append(str(chr(int(float(to_operate1)))))
+        main_circl.append(chr(to_operate1))
 
 
 def c_rnd(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(random.choice(to_operate1.whole_list()))
+        main_circl.append(random.choice(to_operate1))
     else:
         if to_operate1 == "1":
-            main_circl.append(str(random.random()))
+            main_circl.append(random.random())
         else:
-            main_circl.append(str(random.randint(0, int(float(to_operate1)))))
+            main_circl.append(random.randint(0, to_operate1))
 
 
 def c_logical_not(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl(["1" if not float(i) else "0" for i in to_operate1.whole_list()]))
+        main_circl.append(Circl([not i for i in to_operate1.whole_list()]))
     else:
-        main_circl.append("1" if not float(to_operate1) else "0")
+        main_circl.append(not to_operate1)
 
 
 def c_conjoin(main_circl: Circl):
