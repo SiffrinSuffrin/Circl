@@ -112,3 +112,5 @@ TODO: sort operators into groups like arithmetic, sets, logical, etc. for better
 | ⊤        |                        |                                                                                                                                                                             |
 | ⊞        |                        |                                                                                                                                                                             |
 | ν        |                        |                                                                                                                                                                             |
+| ↦        |          |            | takes arguments b a, uses a as a variable id and stores the contents of b in the variable circle                                                                 |
+| ↤        |          |            | takes argument a and uses it as a variable id to retrieve it from the variable circle
