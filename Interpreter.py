@@ -48,7 +48,7 @@ def execute(executing_circl):
             break
         try:
             current_step = main_program.get_counter()
-            command = executing_circl.access(current_step)
+            command = executing_circl[current_step]
 
             if isinstance(command, Circl) or command not in instruction_set.keys():
                 executing_circl.append(command)
