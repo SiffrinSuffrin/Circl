@@ -150,8 +150,7 @@ class Circl:
         return Circl(list(map(lambda x: str(math.floor(float(x))), self.data)))
     def __ceil__(self):
         return Circl(list(map(lambda x: str(math.ceil(float(x))), self.data)))
-    def __hash__(self):
-        return hash(str(self.data))
+
     def __int__(self):
         raise RuntimeError("Tried to convert a Circl to an integer")
 
