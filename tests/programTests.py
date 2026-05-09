@@ -3,14 +3,8 @@ import unittest
 from Program import Program
 
 
-class TestInstructionSet(unittest.TestCase):
-    pass
 
-class TestCircl(unittest.TestCase):
-    pass
 
-class TestInterpreter(unittest.TestCase):
-    pass
 
 class TestProgram(unittest.TestCase):
     def setUp(self):
