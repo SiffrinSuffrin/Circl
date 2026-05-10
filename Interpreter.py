@@ -25,6 +25,8 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
                 to_circl.append(sub_circl)
                 last_substring_letter = i + skipable_letters
         else:
+            if char.isnumeric():
+                char = int(char)
             to_circl.append(char)  # append to main circl
 
     return Circl(to_circl), len(program)
@@ -46,7 +48,7 @@ def execute(executing_circl):
             break
         try:
             current_step = main_program.get_counter()
-            command = executing_circl.access(current_step)
+            command = executing_circl[current_step]
 
             if isinstance(command, Circl) or command not in instruction_set.keys():
                 executing_circl.append(command)
