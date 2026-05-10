@@ -2,9 +2,9 @@ import sys
 import time
 import traceback
 
-from Circl import Circl
-from InstructionSet import instruction_set, Instruction
-from Program import main_program
+from Circl.circl import Circl
+from Circl.instruction_set import instruction_set, Instruction
+from Circl.program import main_program
 
 
 def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
@@ -16,12 +16,14 @@ def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
         # TODO: add {} and () and [] for subcircles
         # TODO: make the quotes " ' ` put in a single string instead of a subcircle
         # TODO: add \ for escaping characters
-        # 
+        #
         if char in ('"', "'", "`"):
             if open_quotes and open_quotes[-1] is char:
                 return Circl(to_circl), i + 1  # push multicircl
             else:
-                sub_circl, skipable_letters = circl_gen(program[i + 1:], open_quotes + char)
+                sub_circl, skipable_letters = circl_gen(
+                    program[i + 1 :], open_quotes + char
+                )
                 to_circl.append(sub_circl)
                 last_substring_letter = i + skipable_letters
         else:
@@ -68,11 +70,3 @@ def execute(executing_circl):
 
         main_program.increment_counter()
         time.sleep(0.01)
-
-
-if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        print("Put in circle string:")
-        execute(decode(input()))
-    else:
-        execute(decode(sys.argv[1]))

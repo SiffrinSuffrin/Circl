@@ -1,12 +1,13 @@
 from __future__ import annotations
 import math
 
-type Point = int | float | bool | str # primitive types
+type Point = int | float | bool | str  # primitive types
 
-class Circl(list['Circl|Point']):
+
+class Circl(list["Circl|Point"]):
     def __repr__(self) -> str:
         as_list = super().__repr__()
-        return 'Ͼ ' + as_list[1:-1] + ' Ͽ'
+        return "Ͼ " + as_list[1:-1] + " Ͽ"
 
     def __str__(self) -> str:
         return self.__repr__()
@@ -17,7 +18,7 @@ class Circl(list['Circl|Point']):
                 return Circl([a + b for (a, b) in zip(self, other)])
             case _:
                 return Circl([x + other for x in self])
-    
+
     def __radd__(self, other: Circl | Point) -> Circl:
         return self + other
 
@@ -45,7 +46,7 @@ class Circl(list['Circl|Point']):
                 return Circl([a * b for (a, b) in zip(self, other)])
             case _:
                 return Circl([x * other for x in self])
-    
+
     def __rmul__(self, other: Point) -> Circl:
         return self * other
 
@@ -59,7 +60,7 @@ class Circl(list['Circl|Point']):
                 return Circl([a / b for (a, b) in zip(self, other)])
             case _:
                 return Circl([x / other for x in self])
-    
+
     def __rtruediv__(self, other: Point) -> Circl:
         return Circl([other / x for x in self])
 
@@ -73,7 +74,7 @@ class Circl(list['Circl|Point']):
                 return Circl([a // b for (a, b) in zip(self, other)])
             case _:
                 return Circl([x // other for x in self])
-    
+
     def __floordiv__(self, other: Point) -> Circl:
         return Circl([other // x for x in self])
 
@@ -84,15 +85,15 @@ class Circl(list['Circl|Point']):
     def __pow__(self, other: Circl | Point) -> Circl:
         match other:
             case Circl(other):
-                return Circl([a ** b for (a, b) in zip(self, other)])
+                return Circl([a**b for (a, b) in zip(self, other)])
             case _:
-                return Circl([x ** other for x in self])
+                return Circl([x**other for x in self])
 
     def __rpow__(self, other: Point) -> Circl:
-        return Circl([other ** x for x in self])
+        return Circl([other**x for x in self])
 
     def __ipow__(self, other: Circl | Point) -> Circl:
-        self = self ** other
+        self = self**other
         return self
 
     def __neg__(self) -> Circl:
@@ -113,11 +114,11 @@ class Circl(list['Circl|Point']):
     def __getitem__(self, index: int) -> Circl | Point:
         return super().__getitem__(index % len(self))
 
-    def pop(self, index: int=-1) -> Circl | Point:
+    def pop(self, index: int = -1) -> Circl | Point:
         return super().pop(index % len(self))
 
     def insert(self, index: int, obj: Circl | Point) -> Circl | Point:
         return super().insert(index % len(self), obj)
 
     def radius(self) -> float:
-        return len(self)/(2*math.pi)
+        return len(self) / (2 * math.pi)

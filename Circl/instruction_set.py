@@ -3,10 +3,11 @@ import random
 from collections.abc import Callable
 from typing import Dict
 
-from Circl import Circl
-from Program import main_program
+from Circl.circl import Circl
+from Circl.program import main_program
 
-var_circl = Circl() #TODO: Please find a better way to do this
+var_circl = Circl()  # TODO: Please find a better way to do this
+
 
 def c_halt(main_circl: Circl):
     while len(main_circl) > 0:
@@ -169,14 +170,11 @@ def c_logical_and(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a and b for a, b in
-                                 zip(to_operate2, to_operate1)]))
+        main_circl.append(Circl([a and b for a, b in zip(to_operate2, to_operate1)]))
     elif isinstance(to_operate1, Circl):
-        main_circl.append(
-            Circl([to_operate2 and i for i in to_operate1]))
+        main_circl.append(Circl([to_operate2 and i for i in to_operate1]))
     elif isinstance(to_operate2, Circl):
-        main_circl.append(
-            Circl([i and to_operate1 for i in to_operate2]))
+        main_circl.append(Circl([i and to_operate1 for i in to_operate2]))
     else:
         main_circl.append(to_operate1 and to_operate2)
 
@@ -185,14 +183,11 @@ def c_logical_or(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a or b for a, b in
-                                 zip(to_operate2, to_operate1)]))
+        main_circl.append(Circl([a or b for a, b in zip(to_operate2, to_operate1)]))
     elif isinstance(to_operate1, Circl):
-        main_circl.append(
-            Circl([to_operate2 or i for i in to_operate1]))
+        main_circl.append(Circl([to_operate2 or i for i in to_operate1]))
     elif isinstance(to_operate2, Circl):
-        main_circl.append(
-            Circl([i or to_operate1 for i in to_operate2]))
+        main_circl.append(Circl([i or to_operate1 for i in to_operate2]))
     else:
         main_circl.append(to_operate1 or to_operate2)
 
@@ -201,14 +196,11 @@ def c_logical_xor(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a ^ b for a, b in
-                                 zip(to_operate2, to_operate1)]))
+        main_circl.append(Circl([a ^ b for a, b in zip(to_operate2, to_operate1)]))
     elif isinstance(to_operate1, Circl):
-        main_circl.append(
-            Circl([to_operate2 ^ i for i in to_operate1]))
+        main_circl.append(Circl([to_operate2 ^ i for i in to_operate1]))
     elif isinstance(to_operate2, Circl):
-        main_circl.append(
-            Circl([i ^ to_operate1 for i in to_operate2]))
+        main_circl.append(Circl([i ^ to_operate1 for i in to_operate2]))
     else:
         main_circl.append(to_operate1 ^ to_operate2)
 
@@ -217,14 +209,11 @@ def c_left_shift(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a << b for a, b in
-                                 zip(to_operate2, to_operate1)]))
+        main_circl.append(Circl([a << b for a, b in zip(to_operate2, to_operate1)]))
     elif isinstance(to_operate1, Circl):
-        main_circl.append(
-            Circl([to_operate2 << i for i in to_operate1]))
+        main_circl.append(Circl([to_operate2 << i for i in to_operate1]))
     elif isinstance(to_operate2, Circl):
-        main_circl.append(
-            Circl([i << to_operate1 for i in to_operate2]))
+        main_circl.append(Circl([i << to_operate1 for i in to_operate2]))
     else:
         main_circl.append(to_operate2 << to_operate1)
 
@@ -233,14 +222,11 @@ def c_right_shift(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a >> b for a, b in
-                                 zip(to_operate2, to_operate1)]))
+        main_circl.append(Circl([a >> b for a, b in zip(to_operate2, to_operate1)]))
     elif isinstance(to_operate1, Circl):
-        main_circl.append(
-            Circl([to_operate2 >> i for i in to_operate1]))
+        main_circl.append(Circl([to_operate2 >> i for i in to_operate1]))
     elif isinstance(to_operate2, Circl):
-        main_circl.append(
-            Circl([i >> to_operate1 for i in to_operate2]))
+        main_circl.append(Circl([i >> to_operate1 for i in to_operate2]))
     else:
         main_circl.append(to_operate2 >> to_operate1)
 
@@ -354,8 +340,7 @@ def c_append_range(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         # TODO: add step argument
-        main_circl.append(Circl([x for x in range(to_operate1[0],
-                                                       to_operate1[1])]))
+        main_circl.append(Circl([x for x in range(to_operate1[0], to_operate1[1])]))
     else:
         main_circl.append(Circl([x for x in range(to_operate1)]))
 
@@ -363,8 +348,7 @@ def c_append_range(main_circl: Circl):
 def c_append_range_circl(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(
-            Circl(Circl(x for x in range(i)) for i in to_operate1))
+        main_circl.append(Circl(Circl(x for x in range(i)) for i in to_operate1))
     else:
         main_circl.append(Circl(x for x in range(to_operate1)))
 
@@ -372,31 +356,30 @@ def c_append_range_circl(main_circl: Circl):
 def c_square(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([i ** 2 for i in to_operate1]))
+        main_circl.append(Circl([i**2 for i in to_operate1]))
     else:
-        main_circl.append(to_operate1 ** 2)
+        main_circl.append(to_operate1**2)
 
 
 def c_sqrt(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([i ** 0.5 for i in to_operate1]))
+        main_circl.append(Circl([i**0.5 for i in to_operate1]))
     else:
-        main_circl.append(to_operate1 ** 0.5)
+        main_circl.append(to_operate1**0.5)
 
 
 def c_pow(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl(
-            [a ** b for a, b in zip(to_operate2, to_operate1)]))
+        main_circl.append(Circl([a**b for a, b in zip(to_operate2, to_operate1)]))
     elif isinstance(to_operate1, Circl):
-        main_circl.append(Circl([to_operate2 ** i for i in to_operate1]))
+        main_circl.append(Circl([to_operate2**i for i in to_operate1]))
     elif isinstance(to_operate2, Circl):
-        main_circl.append(Circl([i ** to_operate1 for i in to_operate2]))
+        main_circl.append(Circl([i**to_operate1 for i in to_operate2]))
     else:
-        main_circl.append(to_operate2 ** to_operate1)
+        main_circl.append(to_operate2**to_operate1)
 
 
 def c_floor(main_circl: Circl):
@@ -423,7 +406,7 @@ def c_round(main_circl: Circl):
         main_circl.append(round(to_operate1))
 
 
-#TODO: make this max over both operators
+# TODO: make this max over both operators
 def c_max(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
@@ -435,7 +418,7 @@ def c_max(main_circl: Circl):
         main_circl.append(max(to_operate1, to_operate2))
 
 
-#TODO: make this min over both operators
+# TODO: make this min over both operators
 def c_min(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
@@ -518,8 +501,12 @@ def c_replace_string(main_circl: Circl):
     to_operate2 = main_circl.pop()
     to_operate3 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([i.replace(to_operate3, to_operate2) if type(i) is str else i for i in
-                                 to_operate1]))
+        main_circl.append(Circl(
+            [
+                i.replace(to_operate3, to_operate2) if type(i) is str else i
+                for i in to_operate1
+            ]
+        ))
     else:
         main_circl.append(to_operate1.replace(to_operate3, to_operate2))
 
@@ -571,12 +558,13 @@ def c_not_contains(main_circl: Circl):
     main_circl.append(to_operate2 not in to_operate1)
 
 
-
 def c_indexof(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(to_operate1.index(to_operate2) if to_operate2 in to_operate1 else "-1")
+        main_circl.append(
+            to_operate1.index(to_operate2) if to_operate2 in to_operate1 else "-1"
+        )
     else:
         main_circl.append(to_operate1.find(to_operate2))
 
@@ -597,7 +585,10 @@ def c_intersection(main_circl: Circl):
 def c_union(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) is Circl and isinstance(to_operate2, Circl) is Circl:
+    if (
+        isinstance(to_operate1, Circl) is Circl
+        and isinstance(to_operate2, Circl) is Circl
+    ):
         seen = set()
         result = []
         for i in to_operate2 + to_operate1:
@@ -608,9 +599,15 @@ def c_union(main_circl: Circl):
     else:
         seen = set()
         result = []
-        for i in to_operate2 if type(to_operate2) is str else "".join(
-                to_operate2) + to_operate1 if type(to_operate1) is str else "".join(
-            to_operate1):
+        for i in (
+            to_operate2
+            if type(to_operate2) is str
+            else (
+                "".join(to_operate2) + to_operate1
+                if type(to_operate1) is str
+                else "".join(to_operate1)
+            )
+        ):
             if i not in seen:
                 seen.add(i)
                 result.append(i)
@@ -621,8 +618,7 @@ def c_difference(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(
-            Circl([i for i in to_operate2 if i not in set(to_operate1)]))
+        main_circl.append(Circl([i for i in to_operate2 if i not in set(to_operate1)]))
     elif isinstance(to_operate1, Circl):
         main_circl.append("".join(i for i in to_operate2 if i not in set(to_operate1)))
     elif isinstance(to_operate2, Circl):
@@ -636,15 +632,20 @@ def c_zip(main_circl: Circl):
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
         main_circl.append(
-            Circl([Circl([a, b]) for a, b in zip(to_operate2, to_operate1)]))
+            Circl([Circl([a, b]) for a, b in zip(to_operate2, to_operate1)])
+        )
     elif isinstance(to_operate1, Circl):
         main_circl.append(
-            Circl([Circl([a, b]) for a, b in zip(list(to_operate2), to_operate1)]))
+            Circl([Circl([a, b]) for a, b in zip(list(to_operate2), to_operate1)])
+        )
     elif isinstance(to_operate2, Circl):
         main_circl.append(
-            Circl([Circl([a, b]) for a, b in zip(to_operate2, list(to_operate1))]))
+            Circl([Circl([a, b]) for a, b in zip(to_operate2, list(to_operate1))])
+        )
     else:
-        main_circl.append(Circl([Circl([a, b]) for a, b in zip(list(to_operate2), list(to_operate1))]))
+        main_circl.append(
+            Circl([Circl([a, b]) for a, b in zip(list(to_operate2), list(to_operate1))])
+        )
 
 
 def c_stack_size(main_circl: Circl):
@@ -654,9 +655,10 @@ def c_stack_size(main_circl: Circl):
 def c_sort(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl(sorted(to_operate1,
-                                       key=lambda x: x if x.replace('.', '', 1).lstrip(
-                                           '-').isdigit() else x)))
+        main_circl.append(
+            Circl(sorted(to_operate1, key=
+            lambda x: (x if x.replace(".", "", 1).lstrip("-").isdigit() else x)))
+        )
     else:
         main_circl.append("".join(sorted(to_operate1)))
 
@@ -783,6 +785,7 @@ def c_sub_circl_elems(main_circl: Circl):
         else:
             main_circl.append(to_operate1 - to_operate2)
 
+
 def c_mul_circl_elems(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
@@ -799,6 +802,7 @@ def c_mul_circl_elems(main_circl: Circl):
             main_circl.append(Circl([to_operate1 * i for i in to_operate2]))
         else:
             main_circl.append(to_operate1 * to_operate2)
+
 
 def c_div_circl_elems(main_circl: Circl):
     to_operate1 = main_circl.pop()
@@ -910,6 +914,7 @@ def c_count(main_circl: Circl):
     else:
         main_circl.append(to_operate1.count(to_operate2))
 
+
 def c_var_push(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
@@ -920,6 +925,7 @@ def c_var_push(main_circl: Circl):
             return
     var_circl.append(Circl([id_, to_operate2]))
 
+
 def c_var_pull(main_circl: Circl):
     to_operate1 = main_circl.pop()
     looking = hash(to_operate1)
@@ -928,12 +934,14 @@ def c_var_pull(main_circl: Circl):
             main_circl.append(i[1])
             break
 
+
 # MAIN INSTRUCTION SET
 # Each declared function above should correspond to a character (i.e. command)
 class Instruction:
     def __init__(self, operation: Callable, calls_subroutine: bool = False) -> None:
         self.operation = operation
         self.calls_subroutine = calls_subroutine
+
 
 instruction_set: Dict[str, Instruction] = {
     ".": Instruction(c_halt),
@@ -1032,5 +1040,5 @@ instruction_set: Dict[str, Instruction] = {
     "⊞": Instruction(c_append_program_counter),
     "ν": Instruction(c_count),
     "↦": Instruction(c_var_push),
-    "↤": Instruction(c_var_pull)
+    "↤": Instruction(c_var_pull),
 }
