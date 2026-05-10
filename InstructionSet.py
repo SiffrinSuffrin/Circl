@@ -125,9 +125,9 @@ def c_to_precision(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([f"{i:.{precision}f}" for i in to_operate1]))
+        main_circl.append(Circl([f"{i:.{to_operate2}f}" for i in to_operate1]))
     else:
-        main_circl.append(f"{to_operate1:.{precision}f}")
+        main_circl.append(f"{to_operate1:.{to_operate2}f}")
 
 
 def c_ordinal(main_circl: Circl):
