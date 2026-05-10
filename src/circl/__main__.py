@@ -1,6 +1,6 @@
 import sys
 
-from Circl.interpreter import decode, execute
+from .interpreter import decode, execute
 
 
 def main():

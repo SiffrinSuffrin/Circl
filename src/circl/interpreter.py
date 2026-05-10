@@ -2,9 +2,9 @@ import sys
 import time
 import traceback
 
-from Circl.circl import Circl
-from Circl.instruction_set import instruction_set, Instruction
-from Circl.program import main_program
+from .circl import Circl
+from .instruction_set import instruction_set, Instruction
+from .program import main_program
 
 
 def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:

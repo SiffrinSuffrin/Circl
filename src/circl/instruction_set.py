@@ -3,8 +3,8 @@ import random
 from collections.abc import Callable
 from typing import Dict
 
-from Circl.circl import Circl
-from Circl.program import main_program
+from .circl import Circl
+from .program import main_program
 
 var_circl = Circl()  # TODO: Please find a better way to do this
 
