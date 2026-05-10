@@ -924,7 +924,7 @@ def c_var_push(main_circl: Circl):
     id_ = hash(Identifier(to_operate1))
     for var in var_circl:
         if var[0] == id_:
-            var1] = to_operate2
+            var[1] = to_operate2
             return
     var_circl.append(Circl([id_, to_operate2]))
 
