@@ -1,0 +1,15 @@
+[project]
+name = "circl"
+version = "0.1.0"
+description = "A half silly, half serious code golfing language where arrays are addressed circularly"
+readme = "README.md"
+license-files = ["LICENSE", "CREDITS.md"]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/SiffrinSuffrin/Circl.git"
+Issues = "https://github.com/SiffrinSuffrin/Circl/issues"
+
+[project.scripts]
+circli = "circl:main"
