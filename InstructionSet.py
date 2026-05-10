@@ -66,7 +66,7 @@ def c_swap_last(main_circl: Circl):
 
 def c_move_top(main_circl: Circl):
     to_operate1 = main_circl.pop()
-    main_circl.append(main_circl[to_operate1 + 1])
+    main_circl.append(main_circl[-to_operate1 + 1])
 
 
 def c_println(main_circl: Circl):
