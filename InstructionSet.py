@@ -648,16 +648,6 @@ def c_zip(main_circl: Circl):
 
 
 def c_stack_size(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        items = to_operate1
-        main_circl.append(
-            Circl([items[i + 1] - items[i] for i in range(len(items) - 1)]))
-    else:
-        main_circl.append(to_operate1)
-
-
-def c_this_length(main_circl: Circl):
     main_circl.append(len(main_circl))
 
 
@@ -985,7 +975,7 @@ instruction_set: Dict[str, Instruction] = {
     "‽": Instruction(c_jump_if_false),
     "⇒": Instruction(c_increment_program_counter_by),
     "⇐": Instruction(c_decrement_program_counter_by),
-    "↺": Instruction(c_execute_as_circl, True),
+    "↺": Instruction(c_execute_as_circl, calls_subroutine=True),
     "⊲": Instruction(c_remove_nth_element),
     "⊳": Instruction(c_remove_negative_nth_element),
     "⊙": Instruction(c_set_index_zero),
@@ -1011,7 +1001,7 @@ instruction_set: Dict[str, Instruction] = {
     "⬆": Instruction(c_uppercase),
     "⬇": Instruction(c_lowercase),
     "∑": Instruction(c_sum),
-    "⊗": Instruction(c_product),
+    "Π": Instruction(c_product),
     "∈": Instruction(c_contains),
     "∉": Instruction(c_not_contains),
     "⍳": Instruction(c_indexof),
@@ -1019,8 +1009,7 @@ instruction_set: Dict[str, Instruction] = {
     "∪": Instruction(c_union),
     "⊖": Instruction(c_difference),
     "⊛": Instruction(c_zip),
-    "Δ": Instruction(c_stack_size),
-    "⌀": Instruction(c_this_length),
+    "⌀": Instruction(c_stack_size),
     "κ": Instruction(c_sort),
     "ρ": Instruction(c_reverse),
     "χ": Instruction(c_replace),
