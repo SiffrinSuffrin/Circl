@@ -18,7 +18,7 @@ def c_halt(main_circl: Circl):
 
 
 def c_read_input(main_circl: Circl):
-        main_circl.append(input())
+    main_circl.append(input())
 
 
 def c_pi(main_circl: Circl):
