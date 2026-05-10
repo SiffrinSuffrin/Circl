@@ -165,7 +165,7 @@ def c_logical_not(main_circl: Circl):
         main_circl.append(not to_operate1)
 
 
-def c_conjoin(main_circl: Circl):
+def c_logical_and(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
@@ -181,7 +181,7 @@ def c_conjoin(main_circl: Circl):
         main_circl.append(to_operate1 and to_operate2)
 
 
-def c_disjoin(main_circl: Circl):
+def c_logical_or(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
@@ -281,14 +281,14 @@ def c_greater_than_equal(main_circl: Circl):
     main_circl.append(to_operate2 >= to_operate1)
 
 
-def c_truthy_program_counter_increment(main_circl: Circl):
+def c_jump_if_true(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if to_operate1:
         main_program.increment_counter(to_operate2)
 
 
-def c_falsy_program_counter_increment(main_circl: Circl):
+def c_jump_if_false(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if not to_operate1:
@@ -503,7 +503,7 @@ def c_split(main_circl: Circl):
         main_circl.append(Circl(list(to_operate1)))
 
 
-def c_inclusion(main_circl: Circl):
+def c_slice(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     to_operate3 = main_circl.pop()
@@ -513,7 +513,7 @@ def c_inclusion(main_circl: Circl):
         main_circl.append(to_operate1[to_operate3:to_operate2])
 
 
-def c_unknown1(main_circl: Circl):
+def c_replace_string(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     to_operate3 = main_circl.pop()
@@ -548,7 +548,7 @@ def c_sum(main_circl: Circl):
         main_circl.append(to_operate1)
 
 
-def c_mul(main_circl: Circl):
+def c_product(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         result = 1.0
@@ -581,7 +581,7 @@ def c_indexof(main_circl: Circl):
         main_circl.append(to_operate1.find(to_operate2))
 
 
-def c_join(main_circl: Circl):
+def c_intersection(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl) is Circl:
@@ -617,7 +617,7 @@ def c_union(main_circl: Circl):
         main_circl.append("".join(result))
 
 
-def c_disjunctive_union(main_circl: Circl):
+def c_difference(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
@@ -631,7 +631,7 @@ def c_disjunctive_union(main_circl: Circl):
         main_circl.append("".join(i for i in to_operate2 if i not in to_operate1))
 
 
-def c_unknown_instruction1(main_circl: Circl):
+def c_zip(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
@@ -647,7 +647,7 @@ def c_unknown_instruction1(main_circl: Circl):
         main_circl.append(Circl([Circl([a, b]) for a, b in zip(list(to_operate2), list(to_operate1))]))
 
 
-def c_unknown_instruction2(main_circl: Circl):
+def c_stack_size(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         items = to_operate1
@@ -661,7 +661,7 @@ def c_this_length(main_circl: Circl):
     main_circl.append(len(main_circl))
 
 
-def c_unknown_instruction3(main_circl: Circl):
+def c_sort(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         main_circl.append(Circl(sorted(to_operate1,
@@ -679,7 +679,7 @@ def c_reverse(main_circl: Circl):
         main_circl.append(to_operate1[::-1])
 
 
-def c_unknown_instruction4(main_circl: Circl):
+def c_replace(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     to_operate3 = main_circl.pop()
@@ -692,7 +692,7 @@ def c_unknown_instruction4(main_circl: Circl):
         main_circl.append("".join(lst))
 
 
-def c_equivalent(main_circl: Circl):
+def c_all_elements_equal(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         if to_operate1[1:] == to_operate1[:-1]:
@@ -711,14 +711,14 @@ def c_circlify(main_circl: Circl):
     main_circl.append(Circl(to_operate1))
 
 
-def c_add_all(main_circl: Circl):
+def c_uncirclify(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         for i in to_operate1:
             main_circl.append(i)
 
 
-def c_unknown_instruction5(main_circl: Circl):
+def c_str_join(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl):
@@ -739,7 +739,7 @@ def c_unknown_instruction5(main_circl: Circl):
             main_circl.append(to_operate2.join(list(to_operate1)))
 
 
-def c_split_circlify(main_circl: Circl):
+def c_str_split(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         to_operate2 = main_circl.pop()
@@ -855,7 +855,7 @@ def c_negate(main_circl: Circl):
         main_circl.append(-to_operate1)
 
 
-def c_merge(main_circl: Circl):
+def c_extend(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
@@ -880,7 +880,7 @@ def c_typeof(main_circl: Circl):
     main_circl.append("circl" if isinstance(to_operate1, Circl) else "string")
 
 
-def c_unknown_instruction6(main_circl: Circl):
+def c_unique(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         seen = []
@@ -900,7 +900,7 @@ def c_unknown_instruction6(main_circl: Circl):
         main_circl.append("".join(result))
 
 
-def c_unknown_instruction7(main_circl: Circl):
+def c_circlify_multiple(main_circl: Circl):
     to_operate1 = main_circl.pop()
     items = []
     for i in range(to_operate1):
@@ -970,8 +970,8 @@ instruction_set: Dict[str, Instruction] = {
     "Ω": Instruction(c_cast_char),
     "⚂": Instruction(c_rnd),
     "¬": Instruction(c_logical_not),
-    "∧": Instruction(c_conjoin),
-    "∨": Instruction(c_disjoin),
+    "∧": Instruction(c_logical_and),
+    "∨": Instruction(c_logical_or),
     "⊕": Instruction(c_logical_xor),
     "⋘": Instruction(c_left_shift),
     "⋙": Instruction(c_right_shift),
@@ -981,8 +981,8 @@ instruction_set: Dict[str, Instruction] = {
     ">": Instruction(c_greater_than),
     "≤": Instruction(c_lower_than_equal),
     "≥": Instruction(c_greater_than_equal),
-    "⁇": Instruction(c_truthy_program_counter_increment),
-    "‽": Instruction(c_falsy_program_counter_increment),
+    "⁇": Instruction(c_jump_if_true),
+    "‽": Instruction(c_jump_if_false),
     "⇒": Instruction(c_increment_program_counter_by),
     "⇐": Instruction(c_decrement_program_counter_by),
     "↺": Instruction(c_execute_as_circl, True),
@@ -1006,40 +1006,40 @@ instruction_set: Dict[str, Instruction] = {
     "⌒": Instruction(c_cos),
     "∡": Instruction(c_tan),
     "✄": Instruction(c_split),
-    "⊂": Instruction(c_inclusion),
-    "↔": Instruction(c_unknown1),
+    "⊂": Instruction(c_slice),
+    "↔": Instruction(c_replace_string),
     "⬆": Instruction(c_uppercase),
     "⬇": Instruction(c_lowercase),
     "∑": Instruction(c_sum),
-    "⊗": Instruction(c_mul),
+    "⊗": Instruction(c_product),
     "∈": Instruction(c_contains),
     "∉": Instruction(c_not_contains),
     "⍳": Instruction(c_indexof),
-    "∩": Instruction(c_join),
+    "∩": Instruction(c_intersection),
     "∪": Instruction(c_union),
-    "⊖": Instruction(c_disjunctive_union),
-    "⊛": Instruction(c_unknown_instruction1),
-    "Δ": Instruction(c_unknown_instruction2),
+    "⊖": Instruction(c_difference),
+    "⊛": Instruction(c_zip),
+    "Δ": Instruction(c_stack_size),
     "⌀": Instruction(c_this_length),
-    "κ": Instruction(c_unknown_instruction3),
+    "κ": Instruction(c_sort),
     "ρ": Instruction(c_reverse),
-    "χ": Instruction(c_unknown_instruction4),
-    "≡": Instruction(c_equivalent),
+    "χ": Instruction(c_replace),
+    "≡": Instruction(c_all_elements_equal),
     "‾": Instruction(c_circlify),
-    "_": Instruction(c_add_all),
-    "⋃": Instruction(c_unknown_instruction5),
-    "✂": Instruction(c_split_circlify),
+    "_": Instruction(c_uncirclify),
+    "⋃": Instruction(c_str_join),
+    "✂": Instruction(c_str_split),
     "+": Instruction(c_add_circl_elems),
     "-": Instruction(c_sub_circl_elems),
     "×": Instruction(c_mul_circl_elems),
     "÷": Instruction(c_div_circl_elems),
     "%": Instruction(c_mod_circl_elems),
     "⁻": Instruction(c_negate),
-    "∥": Instruction(c_merge),
+    "∥": Instruction(c_extend),
     "⊡": Instruction(c_mul_circlify),
     "τ": Instruction(c_typeof),
-    "⌂": Instruction(c_unknown_instruction6),
-    "⊤": Instruction(c_unknown_instruction7),
+    "⌂": Instruction(c_unique),
+    "⊤": Instruction(c_circlify_multiple),
     "⊞": Instruction(c_append_program_counter),
     "ν": Instruction(c_count),
     "↦": Instruction(c_var_push),
