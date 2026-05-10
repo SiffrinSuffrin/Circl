@@ -8,6 +8,9 @@ from .program import main_program
 
 var_circl = Circl()  # TODO: Please find a better way to do this
 
+class Identifier(Circl):
+    def __Hash__(self):
+        return hash(str(self))
 
 def c_halt(main_circl: Circl):
     while len(main_circl) > 0:
@@ -918,21 +921,29 @@ def c_count(main_circl: Circl):
 def c_var_push(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
-    id_ = hash(to_operate1)
-    for i in var_circl:
-        if i[0] == id_:
-            i[1] = to_operate2
+    id_ = hash(Identifier(to_operate1))
+    for var in var_circl:
+        if var[0] == id_:
+            var[1] = to_operate2
             return
     var_circl.append(Circl([id_, to_operate2]))
 
 
 def c_var_pull(main_circl: Circl):
     to_operate1 = main_circl.pop()
-    looking = hash(to_operate1)
-    for i in var_circl:
-        if i[0] == looking:
+    looking = hash(Identifier(to_operate1))
+    for var in var_circl:
+        if var[0] == looking:
             main_circl.append(i[1])
             break
+
+def c_var_del(main_circl: Circl):
+    to_operate1 = main_circl.pop()
+    id_ = hash(Identifier(to_operate1))
+    for i, var in enumerate(var_circl):
+        if var[0] == id_:
+            var_circl.pop(i)
+            return
 
 
 # MAIN INSTRUCTION SET
@@ -1041,4 +1052,5 @@ instruction_set: Dict[str, Instruction] = {
     "ν": Instruction(c_count),
     "↦": Instruction(c_var_push),
     "↤": Instruction(c_var_pull),
+    "🜏": Instruction(c_var_del)
 }
