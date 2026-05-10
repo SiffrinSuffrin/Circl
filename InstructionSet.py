@@ -648,16 +648,6 @@ def c_zip(main_circl: Circl):
 
 
 def c_stack_size(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        items = to_operate1
-        main_circl.append(
-            Circl([items[i + 1] - items[i] for i in range(len(items) - 1)]))
-    else:
-        main_circl.append(to_operate1)
-
-
-def c_this_length(main_circl: Circl):
     main_circl.append(len(main_circl))
 
 
