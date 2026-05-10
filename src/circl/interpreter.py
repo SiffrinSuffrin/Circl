@@ -41,12 +41,14 @@ def decode(program: str = ".") -> Circl:
     return main_circl
 
 
-def execute(executing_circl):
+def execute(executing_circl) -> str:
     main_program.add_counter()
     while True:
         # print("-" * 2 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
         if len(executing_circl) == 0:
             main_program.remove_counter()
+            if main_program.number_of_counters() == 0:
+                return executing_circl.stdout_copy
             break
         try:
             current_step = main_program.get_counter()

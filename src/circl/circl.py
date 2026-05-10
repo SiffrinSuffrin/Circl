@@ -122,3 +122,7 @@ class Circl(list["Circl|Point"]):
 
     def radius(self) -> float:
         return len(self) / (2 * math.pi)
+
+    def __init__(self, circls_or_points: list["Circl|Point"] = ()) -> None:
+        super().__init__(circls_or_points)
+        self.stdout_copy = ""

@@ -75,11 +75,13 @@ def c_move_top(main_circl: Circl):
 
 def c_println(main_circl: Circl):
     to_operate1 = main_circl.pop()
+    main_circl.stdout_copy += str(to_operate1)
     print(to_operate1)
 
 
 def c_print(main_circl: Circl):
     to_operate1 = main_circl.pop()
+    main_circl.stdout_copy += str(to_operate1) + '\n'
     print(to_operate1, end="")
 
 
@@ -298,6 +300,7 @@ def c_execute_as_circl(main_circl: Circl, exec_subroutine):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
         exec_subroutine(to_operate1)
+        main_circl.stdout_copy += to_operate1.stdout_copy
     else:
         raise TypeError(f"Expected Circl, got {type(to_operate1)}")
 
