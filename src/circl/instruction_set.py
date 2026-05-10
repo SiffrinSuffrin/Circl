@@ -18,11 +18,7 @@ def c_halt(main_circl: Circl):
 
 
 def c_read_input(main_circl: Circl):
-    inp: str = input()
-    if inp.isnumeric():
-        main_circl.append(int(inp))
-    else:
-        main_circl.append(inp)
+        main_circl.append(input())
 
 
 def c_pi(main_circl: Circl):
