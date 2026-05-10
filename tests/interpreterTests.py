@@ -1,6 +1,6 @@
 import unittest
 
-import Interpreter
+from src.circl.interpreter import execute, decode
 
 class TestInterpreter(unittest.TestCase):
     def test_decode(self):

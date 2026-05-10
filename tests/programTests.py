@@ -1,6 +1,6 @@
 import unittest
 
-from Program import Program
+from src.circl.program import Program
 
 
 

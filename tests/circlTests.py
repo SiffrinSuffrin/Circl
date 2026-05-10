@@ -1,6 +1,6 @@
 import unittest
 
-import Circl
+from src.circl.circl import Circl
 
 class TestCircl(unittest.TestCase):
     pass

@@ -1,7 +1,7 @@
 import unittest
 
-from InstructionSet import *
-from Circl import Circl
+from src.circl.instruction_set import *
+from src.circl.circl import Circl
 
 # TODO: c_read_input
 # TODO: c_pi
