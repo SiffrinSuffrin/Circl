@@ -2,6 +2,7 @@ import math
 import random
 from collections.abc import Callable
 from typing import Dict
+import re
 
 from .circl import Circl
 from .program import main_program
@@ -948,6 +949,22 @@ def c_var_del(main_circl: Circl):
             var_circl.pop(i)
             return
 
+def c_regex_match(main_circl: Circl):
+    to_operate1 = main_circl.pop()
+    to_operate2 = main_circl.pop()
+    if isinstance(to_operate1, Circl):
+        if isinstance(to_operate2, Circl):
+            new = []
+            for elem in to_operate1:
+                new.append(Circl([re.findall(elem, i) for i in to_operate2]))
+            main_circl.append(Circl(new))
+        else:
+            main_circl.append(Circl([re.findall(i, to_operate2) for i in to_operate1]))
+    else:
+        if isinstance(to_operate2, Circl):
+            main_circl.append(Circl([re.findall(i, to_operate1) for i in to_operate2]))
+        else:
+            main_circl.append(Circl(re.findall(to_operate1, to_operate2)))
 
 # MAIN INSTRUCTION SET
 # Each declared function above should correspond to a character (i.e. command)
@@ -1055,5 +1072,6 @@ instruction_set: Dict[str, Instruction] = {
     "ν": Instruction(c_count),
     "↦": Instruction(c_var_push),
     "↤": Instruction(c_var_pull),
-    "🜏": Instruction(c_var_del)
+    "🜏": Instruction(c_var_del),
+    "Я": Instruction(c_regex_match)
 }
