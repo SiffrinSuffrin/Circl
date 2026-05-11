@@ -2,16 +2,18 @@ import math
 import random
 from collections.abc import Callable
 from typing import Dict
-import re
 
-from .circl import Circl
+from .circl import Circl, Point
 from .program import main_program
 
 var_circl = Circl()  # TODO: Please find a better way to do this
 
 class Identifier(Circl):
-    def __Hash__(self):
+    def __hash__(self):
         return hash(str(self))
+
+def _hash_circl_or_point(value:Circl|Point) -> int:
+    return hash(Identifier(value) if isinstance(value,Circl) else value)
 
 def c_halt(main_circl: Circl):
     while len(main_circl) > 0:
@@ -592,33 +594,24 @@ def c_intersection(main_circl: Circl):
 def c_union(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
-    if (
-        isinstance(to_operate1, Circl) is Circl
-        and isinstance(to_operate2, Circl) is Circl
-    ):
-        seen = set()
-        result = []
-        for i in to_operate2 + to_operate1:
-            if i not in seen:
-                seen.add(i)  # TODO: fix this method.
-                result.append(i)
-        main_circl.append(Circl(result))
+
+    if isinstance(to_operate1,Circl):
+        elements = to_operate1
     else:
-        seen = set()
-        result = []
-        for i in (
-            to_operate2
-            if type(to_operate2) is str
-            else (
-                "".join(to_operate2) + to_operate1
-                if type(to_operate1) is str
-                else "".join(to_operate1)
-            )
-        ):
-            if i not in seen:
-                seen.add(i)
-                result.append(i)
-        main_circl.append("".join(result))
+        elements = Circl([to_operate1])
+    if isinstance(to_operate2, Circl):
+        elements.extend(to_operate2)
+    else:
+        elements.append(to_operate2)
+
+    seen = set()
+    result = []
+
+    for element in elements:
+        if element not in seen:
+            seen.add(_hash_circl_or_point(element))
+            result.append(element)
+    main_circl.append(Circl(result))
 
 
 def c_difference(main_circl: Circl):
@@ -925,7 +918,7 @@ def c_count(main_circl: Circl):
 def c_var_push(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
-    id_ = hash(Identifier(to_operate1))
+    id_ = _hash_circl_or_point(to_operate1)
     for var in var_circl:
         if var[0] == id_:
             var[1] = to_operate2
@@ -935,15 +928,15 @@ def c_var_push(main_circl: Circl):
 
 def c_var_pull(main_circl: Circl):
     to_operate1 = main_circl.pop()
-    looking = hash(Identifier(to_operate1))
+    looking = _hash_circl_or_point(to_operate1)
     for var in var_circl:
         if var[0] == looking:
-            main_circl.append(i[1])
+            main_circl.append(var[1])
             break
 
 def c_var_del(main_circl: Circl):
     to_operate1 = main_circl.pop()
-    id_ = hash(Identifier(to_operate1))
+    id_ = _hash_circl_or_point(to_operate1)
     for i, var in enumerate(var_circl):
         if var[0] == id_:
             var_circl.pop(i)
