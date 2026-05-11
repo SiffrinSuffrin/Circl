@@ -1,6 +1,13 @@
+from pathlib import Path
+
+
 class Program:
-    def __init__(self):
+    def __init__(self, *, interactive: bool = False, verbose_exceptions: bool = False):
         self.counters: list[int] = []
+        self.interactive: bool = interactive
+        self.verbose_exceptions: bool = verbose_exceptions
+
+        self.file: Path | str = "<stdin>"
 
     def get_counter(self) -> int:
         return self.counters[-1]

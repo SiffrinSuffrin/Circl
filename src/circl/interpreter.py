@@ -1,11 +1,17 @@
+
 import time
 import traceback
-from typing import Any
+from typing import cast
+from typing import NamedTuple
 
 from .circl import Circl
 from .instruction_set import instruction_set, Instruction
 from .program import main_program
-from .parser import parse
+from .source_info import SourcecodeInfo
+
+class Program(NamedTuple):
+    full_source: str
+    offset: int
 
 def decode(program: str = ".") -> Circl:
     main_circl = parse(program)
