@@ -89,7 +89,7 @@ def parse_number(input: Peekable[tuple[int, str]]) -> int | float:
 
 def parse_string(input: Peekable[tuple[int, str]]) -> str:
     string = []
-    while True:
+    while True: # TODO: escaping characters in strings
         next = input.next()
         assert next is not None
         _, char = next
