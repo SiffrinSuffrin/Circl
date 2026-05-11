@@ -1,11 +1,8 @@
 import builtins
-from typing import TypeVar, Generic
 from collections.abc import Iterator
 from .circl import Circl
 
-T = TypeVar('T')
-
-class Peekable(Generic[T]):
+class Peekable[T]:
     def __init__(self, iter: Iterator[T]):
         self.iter = iter
         self.peeked = None
@@ -42,6 +39,12 @@ def parse_circl(input: Peekable[tuple[int, str]]) -> Circl:
         match char:
             case ')':
                 break
+            case '\\':
+                input.next()
+                next = input.next()
+                assert next is not None
+                _, char = next
+                circl.append(char)
             case '(':
                 input.next()
                 sub_circl = parse_subcircl(input)
