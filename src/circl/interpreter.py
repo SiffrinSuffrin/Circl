@@ -1,4 +1,3 @@
-import sys
 import time
 import traceback
 from typing import Any
@@ -23,7 +22,7 @@ def execute(executing_circl) -> Any | None:
             main_program.remove_counter()
             if main_program.number_of_counters() == 0:
                 return executing_circl.stdout_copy
-            break
+            break # Change this later to return the return-value instead
         try:
             current_step = main_program.get_counter()
             command = executing_circl[current_step]
