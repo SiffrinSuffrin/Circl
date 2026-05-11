@@ -1,12 +1,10 @@
 import unittest
 
-from src.circl.instruction_set import *
 from src.circl.circl import Circl
+from src.circl.instruction_set import *
+
 
 # TODO: c_read_input
-# TODO: c_pi
-# TODO: c_e
-# TODO: c_inf
 # TODO: c_duplicate
 # TODO: c_pop
 # TODO: c_cycle_back
@@ -26,8 +24,8 @@ from src.circl.circl import Circl
 # TODO: c_cast_char
 # TODO: c_rnd
 # TODO: c_logical_not
-# TODO: c_conjoin
-# TODO: c_disjoin
+# TODO: c_logical_and
+# TODO: c_logical_or
 # TODO: c_logical_xor
 # TODO: c_left_shift
 # TODO: c_right_shift
@@ -37,11 +35,11 @@ from src.circl.circl import Circl
 # TODO: c_greater_than
 # TODO: c_lower_than_equal
 # TODO: c_greater_than_equal
-# TODO: c_truthy_program_counter_increment
-# TODO: c_falsy_program_counter_increment
+# TODO: c_jump_if_true
+# TODO: c_jump_if_false
 # TODO: c_increment_program_counter_by
 # TODO: c_decrement_program_counter_by
-# TODO: c_execute_as_circl, True
+# TODO: c_execute_as_circl
 # TODO: c_remove_nth_element
 # TODO: c_remove_negative_nth_element
 # TODO: c_set_index_zero
@@ -62,42 +60,45 @@ from src.circl.circl import Circl
 # TODO: c_cos
 # TODO: c_tan
 # TODO: c_split
-# TODO: c_inclusion
-# TODO: c_unknown1
+# TODO: c_slice
+# TODO: c_replace_string
 # TODO: c_uppercase
 # TODO: c_lowercase
 # TODO: c_sum
-# TODO: c_mul
+# TODO: c_product
 # TODO: c_contains
 # TODO: c_not_contains
 # TODO: c_indexof
-# TODO: c_join
+# TODO: c_intersection
 # TODO: c_union
-# TODO: c_disjunctive_union
-# TODO: c_unknown_instruction1
-# TODO: c_unknown_instruction2
-# TODO: c_this_length
-# TODO: c_unknown_instruction3
+# TODO: c_difference
+# TODO: c_zip
+# TODO: c_stack_size
+# TODO: c_sort
 # TODO: c_reverse
-# TODO: c_unknown_instruction4
-# TODO: c_equivalent
+# TODO: c_replace
+# TODO: c_all_elements_equal
 # TODO: c_circlify
-# TODO: c_add_all
-# TODO: c_unknown_instruction5
-# TODO: c_split_circlify
+# TODO: c_uncirclify
+# TODO: c_str_join
+# TODO: c_str_split
 # TODO: c_add_circl_elems
 # TODO: c_sub_circl_elems
 # TODO: c_mul_circl_elems
 # TODO: c_div_circl_elems
 # TODO: c_mod_circl_elems
 # TODO: c_negate
-# TODO: c_merge
+# TODO: c_extend
 # TODO: c_mul_circlify
 # TODO: c_typeof
-# TODO: c_unknown_instruction6
-# TODO: c_unknown_instruction7
+# TODO: c_unique
+# TODO: c_circlify_multiple
 # TODO: c_append_program_counter
 # TODO: c_count
+# TODO: c_var_push
+# TODO: c_var_pull
+# TODO: c_var_del
+# TODO: c_regex_match
 
 
 class TestInstructionSet(unittest.TestCase):
