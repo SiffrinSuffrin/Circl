@@ -1,47 +1,21 @@
 import sys
 import time
 import traceback
+from typing import Any
 
 from .circl import Circl
 from .instruction_set import instruction_set, Instruction
 from .program import main_program
-
-
-def circl_gen(program: str, open_quotes="") -> tuple[Circl, int]:
-    to_circl = []
-    last_substring_letter = -1
-    for i, char in enumerate(program):
-        if i <= last_substring_letter:
-            continue
-        # TODO: add {} and () and [] for subcircles
-        # TODO: make the quotes " ' ` put in a single string instead of a subcircle
-        # TODO: add \ for escaping characters
-        #
-        if char in ('"', "'", "`"):
-            if open_quotes and open_quotes[-1] is char:
-                return Circl(to_circl), i + 1  # push multicircl
-            else:
-                sub_circl, skipable_letters = circl_gen(
-                    program[i + 1 :], open_quotes + char
-                )
-                to_circl.append(sub_circl)
-                last_substring_letter = i + skipable_letters
-        else:
-            if char.isnumeric():
-                char = int(char)
-            to_circl.append(char)  # append to main circl
-
-    return Circl(to_circl), len(program)
-
+from .parser import parse
 
 def decode(program: str = ".") -> Circl:
-    main_circl, _ = circl_gen(program)
+    main_circl = parse(program)
     # print(main_circl)
     print("Compiled a circl with radius ", main_circl.radius())
     return main_circl
 
 
-def execute(executing_circl) -> str:
+def execute(executing_circl) -> Any | None:
     main_program.add_counter()
     while True:
         # print("-" * 2 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
