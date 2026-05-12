@@ -1,5 +1,6 @@
 import math
 import random
+import re
 from collections.abc import Callable
 from typing import Dict
 
@@ -8,12 +9,31 @@ from .program import main_program
 
 var_circl = Circl()  # TODO: Please find a better way to do this
 
+
 class Identifier(Circl):
     def __hash__(self):
         return hash(str(self))
 
-def _hash_circl_or_point(value:Circl|Point) -> int:
-    return hash(Identifier(value) if isinstance(value,Circl) else value)
+
+def _hash_circl_or_point(value: Circl | Point) -> int:
+    return hash(Identifier(value) if isinstance(value, Circl) else value)
+
+
+def _apply_elementwise(main_circl: Circl, func: Callable[2]):
+    arg2 = main_circl.pop()
+    arg1 = main_circl.pop()
+
+    match (arg1, arg2):
+        case (Circl(), Circl()):
+            result = Circl([func(a, b) for a, b in zip(arg1, arg2)])
+        case (Circl(), _):
+            result = Circl([func(a, arg2) for a in arg1])
+        case (_, Circl()):
+            result = Circl([func(arg1, b) for b in arg2])
+        case _:
+            result = func(arg1, arg2)
+
+    return result
 
 def c_halt(main_circl: Circl):
     while len(main_circl) > 0:
@@ -175,68 +195,24 @@ def c_logical_not(main_circl: Circl):
 
 
 def c_logical_and(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a and b for a, b in zip(to_operate2, to_operate1)]))
-    elif isinstance(to_operate1, Circl):
-        main_circl.append(Circl([to_operate2 and i for i in to_operate1]))
-    elif isinstance(to_operate2, Circl):
-        main_circl.append(Circl([i and to_operate1 for i in to_operate2]))
-    else:
-        main_circl.append(to_operate1 and to_operate2)
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a and b))
+
 
 
 def c_logical_or(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a or b for a, b in zip(to_operate2, to_operate1)]))
-    elif isinstance(to_operate1, Circl):
-        main_circl.append(Circl([to_operate2 or i for i in to_operate1]))
-    elif isinstance(to_operate2, Circl):
-        main_circl.append(Circl([i or to_operate1 for i in to_operate2]))
-    else:
-        main_circl.append(to_operate1 or to_operate2)
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a or b))
 
 
 def c_logical_xor(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a ^ b for a, b in zip(to_operate2, to_operate1)]))
-    elif isinstance(to_operate1, Circl):
-        main_circl.append(Circl([to_operate2 ^ i for i in to_operate1]))
-    elif isinstance(to_operate2, Circl):
-        main_circl.append(Circl([i ^ to_operate1 for i in to_operate2]))
-    else:
-        main_circl.append(to_operate1 ^ to_operate2)
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a ^ b))
 
 
 def c_left_shift(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a << b for a, b in zip(to_operate2, to_operate1)]))
-    elif isinstance(to_operate1, Circl):
-        main_circl.append(Circl([to_operate2 << i for i in to_operate1]))
-    elif isinstance(to_operate2, Circl):
-        main_circl.append(Circl([i << to_operate1 for i in to_operate2]))
-    else:
-        main_circl.append(to_operate2 << to_operate1)
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a << b))
 
 
 def c_right_shift(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a >> b for a, b in zip(to_operate2, to_operate1)]))
-    elif isinstance(to_operate1, Circl):
-        main_circl.append(Circl([to_operate2 >> i for i in to_operate1]))
-    elif isinstance(to_operate2, Circl):
-        main_circl.append(Circl([i >> to_operate1 for i in to_operate2]))
-    else:
-        main_circl.append(to_operate2 >> to_operate1)
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a >> b))
 
 
 def c_equals(main_circl: Circl):
@@ -365,30 +341,21 @@ def c_append_range_circl(main_circl: Circl):
 def c_square(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([i**2 for i in to_operate1]))
+        main_circl.append(Circl([i ** 2 for i in to_operate1]))
     else:
-        main_circl.append(to_operate1**2)
+        main_circl.append(to_operate1 ** 2)
 
 
 def c_sqrt(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([i**0.5 for i in to_operate1]))
+        main_circl.append(Circl([i ** 0.5 for i in to_operate1]))
     else:
-        main_circl.append(to_operate1**0.5)
+        main_circl.append(to_operate1 ** 0.5)
 
 
 def c_pow(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl([a**b for a, b in zip(to_operate2, to_operate1)]))
-    elif isinstance(to_operate1, Circl):
-        main_circl.append(Circl([to_operate2**i for i in to_operate1]))
-    elif isinstance(to_operate2, Circl):
-        main_circl.append(Circl([i**to_operate1 for i in to_operate2]))
-    else:
-        main_circl.append(to_operate2**to_operate1)
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a ** b))
 
 
 def c_floor(main_circl: Circl):
@@ -595,7 +562,7 @@ def c_union(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
 
-    if isinstance(to_operate1,Circl):
+    if isinstance(to_operate1, Circl):
         elements = to_operate1
     else:
         elements = Circl([to_operate1])
@@ -628,24 +595,7 @@ def c_difference(main_circl: Circl):
 
 
 def c_zip(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(
-            Circl([Circl([a, b]) for a, b in zip(to_operate2, to_operate1)])
-        )
-    elif isinstance(to_operate1, Circl):
-        main_circl.append(
-            Circl([Circl([a, b]) for a, b in zip(list(to_operate2), to_operate1)])
-        )
-    elif isinstance(to_operate2, Circl):
-        main_circl.append(
-            Circl([Circl([a, b]) for a, b in zip(to_operate2, list(to_operate1))])
-        )
-    else:
-        main_circl.append(
-            Circl([Circl([a, b]) for a, b in zip(list(to_operate2), list(to_operate1))])
-        )
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: Circl([a, b])))
 
 
 def c_stack_size(main_circl: Circl):
@@ -751,94 +701,21 @@ def c_str_split(main_circl: Circl):
 
 
 def c_add_circl_elems(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        if isinstance(to_operate2, Circl):
-            new = []
-            for elem in to_operate1:
-                new.append(Circl([i + elem for i in to_operate2]))
-            main_circl.append(Circl(new))
-        else:
-            main_circl.append(Circl([to_operate2 + i for i in to_operate1]))
-    else:
-        if isinstance(to_operate2, Circl):
-            main_circl.append(Circl([to_operate1 + i for i in to_operate2]))
-        else:
-            main_circl.append(to_operate1 + to_operate2)
-
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a + b))
 
 def c_sub_circl_elems(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        if isinstance(to_operate2, Circl):
-            new = []
-            for elem in to_operate1:
-                new.append(Circl([i - elem for i in to_operate2]))
-            main_circl.append(Circl(new))
-        else:
-            main_circl.append(Circl([to_operate2 - i for i in to_operate1]))
-    else:
-        if isinstance(to_operate2, Circl):
-            main_circl.append(Circl([to_operate1 - i for i in to_operate2]))
-        else:
-            main_circl.append(to_operate1 - to_operate2)
-
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a - b))
 
 def c_mul_circl_elems(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        if isinstance(to_operate2, Circl):
-            new = []
-            for elem in to_operate1:
-                new.append(Circl([i * elem for i in to_operate2]))
-            main_circl.append(Circl(new))
-        else:
-            main_circl.append(Circl([to_operate2 * i for i in to_operate1]))
-    else:
-        if isinstance(to_operate2, Circl):
-            main_circl.append(Circl([to_operate1 * i for i in to_operate2]))
-        else:
-            main_circl.append(to_operate1 * to_operate2)
-
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a * b))
 
 def c_div_circl_elems(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        if isinstance(to_operate2, Circl):
-            new = []
-            for elem in to_operate1:
-                new.append(Circl([i / elem for i in to_operate2]))
-            main_circl.append(Circl(new))
-        else:
-            main_circl.append(Circl([to_operate2 / i for i in to_operate1]))
-    else:
-        if isinstance(to_operate2, Circl):
-            main_circl.append(Circl([to_operate1 / i for i in to_operate2]))
-        else:
-            main_circl.append(to_operate1 / to_operate2)
-
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a / b))
 
 def c_mod_circl_elems(main_circl: Circl):
-    to_operate1 = main_circl.pop()
-    if isinstance(to_operate1, Circl):
-        to_operate2 = main_circl.pop()
-        if isinstance(to_operate2, Circl):
-            new = []
-            for elem in to_operate1:
-                new.append(Circl([i % elem for i in to_operate2]))
-            main_circl.append(Circl(new))
-        else:
-            main_circl.append(Circl([to_operate2 % i for i in to_operate1]))
-    else:
-        to_operate2 = main_circl.pop()
-        if isinstance(to_operate2, Circl):
-            main_circl.append(Circl([to_operate1 % i for i in to_operate2]))
-        else:
-            main_circl.append(to_operate1 % to_operate2)
+    main_circl.append(_apply_elementwise(main_circl, lambda a, b: a % b))
+
+
 
 
 def c_negate(main_circl: Circl):
@@ -850,16 +727,24 @@ def c_negate(main_circl: Circl):
 
 
 def c_extend(main_circl: Circl):
-    to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
-    if isinstance(to_operate1, Circl) and isinstance(to_operate2, Circl):
-        main_circl.append(Circl(to_operate2 + to_operate1))
-    elif isinstance(to_operate1, Circl):
-        main_circl.append(Circl([to_operate2] + to_operate1))
-    elif isinstance(to_operate2, Circl):
-        main_circl.append(Circl(to_operate2 + [to_operate1]))
-    else:
-        main_circl.append(to_operate2 + to_operate1)
+    to_operate1 = main_circl.pop()
+
+    match (to_operate1, to_operate2):
+        case (Circl(), Circl()):
+            to_operate1.extend(to_operate2)
+            main_circl.append(to_operate1)
+        case (Circl(), _):
+            to_operate1.append(to_operate2)
+            main_circl.append(to_operate1)
+        case (_, Circl()):
+            extended_circl = Circl([to_operate1])
+            extended_circl.extend(to_operate2)
+            main_circl.append(extended_circl)
+        case (str(), str()):
+            main_circl.append(to_operate1 + to_operate2)
+        case (_, _):
+            main_circl.append(Circl([to_operate1, to_operate2]))
 
 
 def c_mul_circlify(main_circl: Circl):
@@ -934,6 +819,7 @@ def c_var_pull(main_circl: Circl):
             main_circl.append(var[1])
             break
 
+
 def c_var_del(main_circl: Circl):
     to_operate1 = main_circl.pop()
     id_ = _hash_circl_or_point(to_operate1)
@@ -941,6 +827,7 @@ def c_var_del(main_circl: Circl):
         if var[0] == id_:
             var_circl.pop(i)
             return
+
 
 def c_regex_match(main_circl: Circl):
     to_operate1 = main_circl.pop()
@@ -958,6 +845,7 @@ def c_regex_match(main_circl: Circl):
             main_circl.append(Circl([re.findall(i, to_operate1) for i in to_operate2]))
         else:
             main_circl.append(Circl(re.findall(to_operate1, to_operate2)))
+
 
 # MAIN INSTRUCTION SET
 # Each declared function above should correspond to a character (i.e. command)
