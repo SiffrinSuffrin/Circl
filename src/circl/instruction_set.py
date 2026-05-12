@@ -19,7 +19,7 @@ def _hash_circl_or_point(value: Circl | Point) -> int:
     return hash(Identifier(value) if isinstance(value, Circl) else value)
 
 
-def _apply_elementwise(main_circl: Circl, func: Callable[2]):
+def _apply_elementwise(main_circl: Circl, func: Callable[[Point,Point],Point]):
     arg2 = main_circl.pop()
     arg1 = main_circl.pop()
 
