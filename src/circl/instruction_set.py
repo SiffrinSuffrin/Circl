@@ -13,6 +13,17 @@ class Identifier(Circl):
     def __Hash__(self):
         return hash(str(self))
 
+
+def _expect_type(value, expected_type):
+    if isinstance(value, expected_type):
+        return value
+    raise TypeError(f"Expected {expected_type.__name__}, got {type(value).__name__}")
+
+
+def _map_circl_values(circl: Circl, expected_type, operation):
+    return Circl([operation(_expect_type(i, expected_type)) for i in circl])
+
+
 def c_halt(main_circl: Circl):
     while len(main_circl) > 0:
         main_circl.pop()
@@ -507,30 +518,36 @@ def c_replace_string(main_circl: Circl):
     to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
     to_operate3 = main_circl.pop()
+    _expect_type(to_operate2, str)
+    _expect_type(to_operate3, str)
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl(
-            [
-                i.replace(to_operate3, to_operate2) if type(i) is str else i
-                for i in to_operate1
-            ]
-        ))
+        main_circl.append(
+            _map_circl_values(
+                to_operate1,
+                str,
+                lambda i: i.replace(to_operate3, to_operate2),
+            )
+        )
     else:
+        _expect_type(to_operate1, str)
         main_circl.append(to_operate1.replace(to_operate3, to_operate2))
 
 
 def c_uppercase(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([i.upper() for i in to_operate1]))
+        main_circl.append(_map_circl_values(to_operate1, str, str.upper))
     else:
+        _expect_type(to_operate1, str)
         main_circl.append(to_operate1.upper())
 
 
 def c_lowercase(main_circl: Circl):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        main_circl.append(Circl([i.lower() for i in to_operate1]))
+        main_circl.append(_map_circl_values(to_operate1, str, str.lower))
     else:
+        _expect_type(to_operate1, str)
         main_circl.append(to_operate1.lower())
 
 
