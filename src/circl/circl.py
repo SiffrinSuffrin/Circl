@@ -2,7 +2,6 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
-from .source_info import SourcecodeInfo
 
 type Point = int | float | bool | str  # primitive types
 
@@ -126,7 +125,6 @@ class Circl(list["Circl|Point"]):
     def radius(self) -> float:
         return len(self) / (2 * math.pi)
 
-    def __init__(self, circls_or_points: list["Circl|Point"] = (), *, source_info: None | SourcecodeInfo = None) -> None:
+    def __init__(self, circls_or_points: list["Circl|Point"] = ()) -> None:
         super().__init__(circls_or_points)
         self.stdout_copy = ""
-        self.source_info: SourcecodeInfo | None = source_info

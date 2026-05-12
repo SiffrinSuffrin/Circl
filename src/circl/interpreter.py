@@ -9,7 +9,6 @@ from .parser import parse
 from .circl import Circl
 from .instruction_set import instruction_set, Instruction
 from .program import main_program
-from .source_info import SourcecodeInfo
 
 class Program(NamedTuple):
     full_source: str
