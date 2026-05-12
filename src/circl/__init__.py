@@ -4,7 +4,6 @@ from . import instruction_set
 from . import circl
 from . import interpreter
 from . import program
-from . import source_info
 
 def main():
     from argparse import ArgumentParser # only import if main is called
