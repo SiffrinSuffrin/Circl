@@ -1,5 +1,7 @@
 from __future__ import annotations
 import math
+from pathlib import Path
+
 
 type Point = int | float | bool | str  # primitive types
 

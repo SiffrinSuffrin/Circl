@@ -1,12 +1,18 @@
-import sys
+
 import time
 import traceback
+from typing import cast
+from typing import NamedTuple
 from typing import Any
 
+from .parser import parse
 from .circl import Circl
 from .instruction_set import instruction_set, Instruction
 from .program import main_program
-from .parser import parse
+
+class Program(NamedTuple):
+    full_source: str
+    offset: int
 
 def decode(program: str = ".") -> Circl:
     main_circl = parse(program)
@@ -23,7 +29,7 @@ def execute(executing_circl) -> Any | None:
             main_program.remove_counter()
             if main_program.number_of_counters() == 0:
                 return executing_circl.stdout_copy
-            break
+            break # Change this later to return the return-value instead
         try:
             current_step = main_program.get_counter()
             command = executing_circl[current_step]
