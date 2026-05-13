@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import math
-from pathlib import Path
-
 from collections.abc import Iterable
 
 type Point = int | float | bool | str  # primitive types
