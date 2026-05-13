@@ -16,7 +16,7 @@ class Identifier(Circl):
 
 
 def _hash_circl_or_point(value: Circl | Point) -> int:
-    return hash(Identifier(value) if isinstance(value, Circl) else value)
+    return hash(Identifier([_hash_circl_or_point(v) for v in value]) if isinstance(value, Circl) else value)
 
 
 def _apply_elementwise(main_circl: Circl, func: Callable[[Point,Point],Point]):
@@ -575,7 +575,7 @@ def c_union(main_circl: Circl):
     result = []
 
     for element in elements:
-        if element not in seen:
+        if _hash_circl_or_point(element) not in seen:
             seen.add(_hash_circl_or_point(element))
             result.append(element)
     main_circl.append(Circl(result))
