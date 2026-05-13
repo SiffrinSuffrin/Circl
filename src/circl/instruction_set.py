@@ -559,22 +559,16 @@ def c_intersection(main_circl: Circl):
 
 
 def c_union(main_circl: Circl):
-    to_operate1 = main_circl.pop()
     to_operate2 = main_circl.pop()
+    to_operate1 = main_circl.pop()
 
-    if isinstance(to_operate1, Circl):
-        elements = to_operate1
-    else:
-        elements = Circl([to_operate1])
-    if isinstance(to_operate2, Circl):
-        elements.extend(to_operate2)
-    else:
-        elements.append(to_operate2)
+    circl1 = Circl(to_operate1)
+    circl2 = Circl(to_operate2)
 
     seen = set()
     result = []
 
-    for element in elements:
+    for element in circl1 + circl2:
         if _hash_circl_or_point(element) not in seen:
             seen.add(_hash_circl_or_point(element))
             result.append(element)
@@ -731,20 +725,12 @@ def c_extend(main_circl: Circl):
     to_operate1 = main_circl.pop()
 
     match (to_operate1, to_operate2):
-        case (Circl(), Circl()):
-            to_operate1.extend(to_operate2)
-            main_circl.append(to_operate1)
-        case (Circl(), _):
-            to_operate1.append(to_operate2)
-            main_circl.append(to_operate1)
-        case (_, Circl()):
-            extended_circl = Circl([to_operate1])
-            extended_circl.extend(to_operate2)
-            main_circl.append(extended_circl)
+        case (Circl(), _) | (_, Circl()):
+            main_circl.append(Circl(Circl(to_operate1) + Circl(to_operate2)))
         case (str(), str()):
             main_circl.append(to_operate1 + to_operate2)
         case (_, _):
-            main_circl.append(Circl([to_operate1, to_operate2]))
+            main_circl.append(Circl(Circl(to_operate1) + Circl(to_operate2)))
 
 
 def c_mul_circlify(main_circl: Circl):

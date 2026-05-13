@@ -1,17 +1,23 @@
 from __future__ import annotations
+
 import math
 from pathlib import Path
 
+from collections.abc import Iterable
 
 type Point = int | float | bool | str  # primitive types
 
 
 class Circl(list["Circl|Point"]):
-    def __init__(self, circls_or_points: list["Circl|Point"] = None):
-        if circls_or_points is None:
+    def __init__(self, circls_or_points: list["Circl|Point"] | Point = None):
+        if isinstance(circls_or_points, Point.__value__):
+            super().__init__([circls_or_points])
+        elif isinstance(circls_or_points, Iterable):
+            super().__init__(circls_or_points)
+        elif circls_or_points is None:
             super().__init__([])
         else:
-            super().__init__(circls_or_points)
+            raise TypeError(f"Expected types list['Circl|Point'] got instead type {type(circls_or_points)}")
         self.stdout_copy = ""
 
     def __repr__(self) -> str:
