@@ -16,6 +16,8 @@ class Circl(list["Circl|Point"]):
             super().__init__([])
         else:
             raise TypeError(f"Expected types list['Circl|Point'] got instead type {type(circls_or_points)}")
+
+        # TODO: refactor stdout_copy such that circl doesnt store this information anymore. Maybe move to class Program?
         self.stdout_copy = ""
 
     def __repr__(self) -> str:

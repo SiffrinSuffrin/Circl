@@ -98,12 +98,14 @@ def c_move_top(main_circl: Circl):
 
 def c_println(main_circl: Circl):
     to_operate1 = main_circl.pop()
+    # TODO: refactor stdout_copy such that circl doesnt store this information anymore. Maybe move to class Program?
     main_circl.stdout_copy += str(to_operate1)
     print(to_operate1)
 
 
 def c_print(main_circl: Circl):
     to_operate1 = main_circl.pop()
+    # TODO: refactor stdout_copy such that circl doesnt store this information anymore. Maybe move to class Program?
     main_circl.stdout_copy += str(to_operate1) + '\n'
     print(to_operate1, end="")
 
