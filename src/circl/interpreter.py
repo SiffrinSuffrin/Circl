@@ -28,6 +28,7 @@ def execute(executing_circl) -> Any | None:
         if len(executing_circl) == 0:
             main_program.remove_counter()
             if main_program.number_of_counters() == 0:
+                # TODO: refactor stdout_copy such that circl doesnt store this information anymore. Maybe move to class Program?
                 return executing_circl.stdout_copy
             break # Change this later to return the return-value instead
         try:
