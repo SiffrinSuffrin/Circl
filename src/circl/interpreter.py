@@ -10,6 +10,10 @@ from .circl import Circl
 from .instruction_set import instruction_set, Instruction
 from .program import main_program
 
+class Environment:
+    def __init__(self, main_circl: Circl):
+        self.main_circl = main_circl
+
 class Program(NamedTuple):
     full_source: str
     offset: int
