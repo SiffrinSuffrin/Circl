@@ -285,6 +285,14 @@ class TestInstructionSet(unittest.TestCase):
         # TODO after the var_circl gets rewritten
         pass
 
+    def test_c_return(self):
+        test_cases = [(Circl(), None),
+                      (Circl([0, Circl([1])]), Circl([1])),
+                      (Circl([1,2,3]), 3)]
+
+        for i, (test, result) in enumerate( test_cases):
+            return_ = c_return(test)
+            self.assertEqual(return_, result)
 
 if __name__ == '__main__':
     unittest.main()
