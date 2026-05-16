@@ -39,6 +39,11 @@ def c_halt(main_circl: Circl):
     while len(main_circl) > 0:
         main_circl.pop()
 
+def c_return(main_circl: Circl):
+    if main_circl:
+        returned_value = main_circl.pop()
+        return returned_value
+    return None
 
 def c_read_input(main_circl: Circl):
     main_circl.append(input())
@@ -280,8 +285,9 @@ def c_decrement_program_counter_by(main_circl: Circl):
 def c_execute_as_circl(main_circl: Circl, exec_subroutine):
     to_operate1 = main_circl.pop()
     if isinstance(to_operate1, Circl):
-        exec_subroutine(to_operate1)
+        result = exec_subroutine(to_operate1)
         main_circl.stdout_copy += to_operate1.stdout_copy
+        return result
     else:
         raise TypeError(f"Expected Circl, got {type(to_operate1)}")
 
@@ -845,6 +851,7 @@ class Instruction:
 
 instruction_set: Dict[str, Instruction] = {
     ".": Instruction(c_halt),
+    "🜝": Instruction(c_return),
     "˅": Instruction(c_read_input),
     "π": Instruction(c_pi),
     "ε": Instruction(c_e),

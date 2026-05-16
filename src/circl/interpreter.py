@@ -24,7 +24,7 @@ def decode(program: str = ".") -> Circl:
 def execute(executing_circl) -> Any | None:
     main_program.add_counter()
     while True:
-        # print("-" * 2 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
+        print("-" * 2 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
         if len(executing_circl) == 0:
             main_program.remove_counter()
             if main_program.number_of_counters() == 0:
@@ -42,9 +42,15 @@ def execute(executing_circl) -> Any | None:
 
                 # instruction exists for command -> execute it
                 if instruction.calls_subroutine:
-                    instruction.operation(executing_circl, execute)
+                    result = instruction.operation(executing_circl, execute)
+                    if result is not None:
+                        executing_circl.append(result)
+
                 else:
-                    instruction.operation(executing_circl)
+                    result = instruction.operation(executing_circl)
+                    if result is not None:
+                        main_program.remove_counter()
+                        return result
 
         except Exception as e:
             traceback.print_exception(e)
