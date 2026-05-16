@@ -24,7 +24,8 @@ def decode(program: str = ".") -> Circl:
 def execute(executing_circl) -> Any | None:
     main_program.add_counter()
     while True:
-        print("-" * 2 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
+        # TODO make the following line be used based on the -v passed during starting the program
+        #print("-" * 2 * (main_program.number_of_counters()-1), executing_circl, f"counter is at {main_program.get_counter()}")
         if len(executing_circl) == 0:
             main_program.remove_counter()
             if main_program.number_of_counters() == 0:
